@@ -1,5 +1,9 @@
+a {
+  text-decoration: none;
+}
+
 .header {
-  background: linear-gradient(360deg, #100549,#c6c3ff);
+  background: linear-gradient(225deg, #fff, #bbc5ff);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -17,7 +21,7 @@
 }
 
 .header h1 {
-  color: #fff;
+  color: #172286;
   font-family: serif;
   font-weight: 600;
   line-height: 1.4;
@@ -32,12 +36,10 @@
   left: 200px;
   width: calc(100% - 200px);
   background: linear-gradient(360deg, #262d6a, #3527b1, #07002e);
-  /* background-color: #172286; */
 }
 
 .card_layout {
   margin: 20px 0 20px 20px;
-  /* margin: 20px 0 ; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 0.5fr));
   grid-gap: 10px;
@@ -57,7 +59,6 @@
   margin-top: 20px;
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 15px;
-  /* background-color: rgba(98, 88, 208, 0.1); */
   background: linear-gradient(45deg, #0e0542, #172286);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 25px rgba(51, 51, 51, 0.8);
@@ -70,10 +71,26 @@
   transition-duration: 1s;
 }
 
-.card h3 {
-  color: white;
-  font-size: 26px;
+.card__name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   font-family: serif;
+  color: #fff;
+  font-weight: 600;
+}
+
+.card__name span {
+  font-size: 16px;
+  color: #ddd;
+  margin-top: 5px;
+}
+
+.card__name h3 {
+  font-size: 26px;
+  text-align: center;
+  margin-top: 7px;
 }
 
 .card__rectangle {
@@ -98,11 +115,10 @@
   color:white;
   padding: 15px;
   font-size: 13px;
-  /* font-family: serif; */
 }
 
 .card__detail span {
-  color: blue;
-  -webkit-text-stroke: 0.2px #ffffff;
-  font-weight: 600;
+  font-size: 15px;
+  font-family: serif;
+  font-weight: bold;
 }
