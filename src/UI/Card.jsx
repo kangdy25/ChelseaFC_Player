@@ -2,9 +2,6 @@ import player_2324 from "../Database/2324_player"
 
 export default function Card() {
     const url = '/img/player/'
-    // let [player2324, setPlayer2324] = useState([
-    //     'Kepa', 'Badiashile', 'Thiago Silva', 'Chilwell', 'Reece James', 'Cucurella', 'Fofana',
-    //     'Ampadu',])
     return (
         <div className="background">
             <div className="card_layout">

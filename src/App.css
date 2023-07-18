@@ -30,9 +30,86 @@ a {
   margin-bottom: 300px;
 }
 
+.Navbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 280px);
+  height: 6s0px;
+  left: 200px;
+  padding: 0px 40px;
+  color: #fff;
+  background-color: rgb(43, 36, 149);
+  border-bottom: 1px solid #fff;
+  text-align: center;
+}
+
+.Navbar__dropbox select {
+    /* 생략 */
+    font-family: "Noto Sansf KR", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #444;
+    background-color: #fff;
+  
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin: 0;
+  
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 3px 3px 3px 5px rgba(63, 63, 156, 0.04);
+}
+
+.Navbar__dropbox select:hover {
+    border-color: #888;
+  }
+  
+.Navbar__dropbox select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+  }
+  
+.Navbar__dropbox select:disabled {
+    opacity: 0.5;
+}
+
+.Navbar__sort {
+  display: flex;
+  justify-content: center;
+}
+
+.Navbar__sort ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.Navbar__sort ul li {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 10px;
+  background: none;
+}
+
+.Navbar__sort ul li:hover {
+  background: linear-gradient(45deg, rgb(103, 137, 250), rgb(47, 50, 234));
+  transition: 1s;
+  box-shadow: rgba(0, 255, 255, 0.525) 0px 5px 20px;
+}
+
+.Navbar__sort ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .background {
   position: absolute;
-  top: 0px;
   left: 200px;
   width: calc(100% - 200px);
   background: linear-gradient(360deg, #262d6a, #3527b1, #07002e);
@@ -45,7 +122,6 @@ a {
   grid-gap: 10px;
   justify-content: center;
   align-content: center;
-  
   padding: 0 20px 20px;
 }
 
