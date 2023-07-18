@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import Card from './UI/Card';
 import Header from './UI/Header';
+import Navbar from './UI/Navbar';
+import player2324 from './Database/2324_player.js'
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <Header/>
-      
-      <Card/>
+      <Navbar/>
+      <Card player2324={player2324}/>
     </div>
   );
 }
