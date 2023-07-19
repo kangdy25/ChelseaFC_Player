@@ -77,12 +77,6 @@ const player_2324 = [
         position: 'Right-back',
         backnumber: '',
     },
-    {
-        first_name: 'Malang',
-        last_name: 'Sarr',
-        position: 'Centre-back / Left-back',
-        backnumber: '',
-    },
 
 ]
 
