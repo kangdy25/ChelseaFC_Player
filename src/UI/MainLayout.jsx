@@ -7,7 +7,8 @@ import { useState } from "react";
 
 export default function MainLayout() {
     let [seasonInfo, setSeasonInfo] = useState([player2223, player2324]);
-    let [order, setOrder] = useState(0)
+    let [order, setOrder] = useState(0);
+    let [sortResult, setSortResult] = useState('')
     return (
         <div>
             <div className="Navbar">
@@ -22,21 +23,27 @@ export default function MainLayout() {
                 <div className="Navbar__sort">
                     <ul>
                         <li><span onClick={()=>{
-                            seasonInfo.map((a, i) => {
+                            let seasonInfoCopy = [...seasonInfo];
+                            seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1);
                                 console.log('이름 정렬 완료!! 선수목록 \n', seasonInfo[i]);
+                                setSeasonInfo(seasonInfoCopy)
                             })
                         }}>Name</span></li>
                         <li><span onClick={()=>{
-                            seasonInfo.map((a, i) => {
+                            let seasonInfoCopy = [...seasonInfo];
+                            seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.backnumber - y.backnumber); 
                                 console.log('등번호 정렬 완료!! 선수목록 \n', seasonInfo[i]);
+                                setSeasonInfo(seasonInfoCopy)
                             })
                         }}>Number</span></li>
                         <li><span onClick={()=>{
-                            seasonInfo.map((a, i) => {
+                            let seasonInfoCopy = [...seasonInfo];
+                            seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.role - y.role); 
                                 console.log('포지션 정렬 완료!! 선수목록 \n', seasonInfo[i]);
+                                setSeasonInfo(seasonInfoCopy)
                             })
                         }}>Position</span></li>
                     </ul>
