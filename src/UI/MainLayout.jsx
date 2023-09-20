@@ -1,5 +1,4 @@
 import CardLayout from "../component/CardLayout";
-import SortLayout from "../component/SortLayout";
 
 import player2223 from '../Database/2223_player'
 import player2324 from '../Database/2324_player'
@@ -8,7 +7,6 @@ import { useState } from "react";
 export default function MainLayout() {
     let [seasonInfo, setSeasonInfo] = useState([player2223, player2324]);
     let [order, setOrder] = useState(0);
-    let [sortResult, setSortResult] = useState('')
     return (
         <div>
             <div className="Navbar">
