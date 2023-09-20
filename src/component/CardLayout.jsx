@@ -14,7 +14,7 @@ export default function CardLayout(props) {
                                                 <h3>{a.last_name}</h3>
                                             </div>
                                             <div className="card__rectangle">
-                                                <img src={url + a.season + a.last_name + '.webp'} alt=""/>
+                                                <img src={url + '/' + a.season + '/' + a.season + a.last_name + '.webp'} alt=""/>
                                             </div>
                                             <p className="card__detail">
                                                 <span>{a.position}</span> 

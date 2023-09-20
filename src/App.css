@@ -149,12 +149,17 @@ a {
 
 .card__number {
   color: #fff;
-  opacity: 0.3;
-  font-size: 100px;
+  /* border: 1px solid #fff; */
+  opacity: 0.5;
+  font-size: 40px;
+  padding: 10px 0 0 15px;
+  font-family: serif;
+  /* width: 100%; */
   position: absolute;
   top: 0;
   left: 0;
-  /* z-index: 2; */
+  z-index: 2;
+  letter-spacing: -3px;
 }
 
 .card__name {
@@ -163,6 +168,7 @@ a {
   justify-content: center;
   align-items: stretch;
   font-family: serif;
+  /* letter-spacing: 2px; */
   color: #fff;
   font-weight: 600;
 }
