@@ -6,12 +6,12 @@ import { useState } from "react";
 
 export default function MainLayout() {
     let [seasonInfo, setSeasonInfo] = useState([player2223, player2324]);
-    let [order, setOrder] = useState(0);
+    let [order, setOrder] = useState(1);
     return (
         <div>
             <div className="Navbar">
                 <div className="Navbar__dropbox">  
-                    <select name="Season" defaultValue={0} onChange={(e)=>{
+                    <select name="Season" defaultValue={1} onChange={(e)=>{
                         setOrder(e.target.value)
                     }}>
                         <option value={0}>2022-2023</option>
