@@ -25,7 +25,8 @@ export default function MainLayout() {
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1);
                                 console.log('이름 정렬 완료!! 선수목록 \n', seasonInfo[i]);
-                                setSeasonInfo(seasonInfoCopy)
+                                setSeasonInfo(seasonInfoCopy);
+                                return <CardLayout seasonInfo={seasonInfo} order={order}/>;
                             })
                         }}>Name</span></li>
                         <li><span onClick={()=>{
@@ -33,7 +34,8 @@ export default function MainLayout() {
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.backnumber - y.backnumber); 
                                 console.log('등번호 정렬 완료!! 선수목록 \n', seasonInfo[i]);
-                                setSeasonInfo(seasonInfoCopy)
+                                setSeasonInfo(seasonInfoCopy);
+                                return <CardLayout seasonInfo={seasonInfo} order={order}/>;
                             })
                         }}>Number</span></li>
                         <li><span onClick={()=>{
@@ -41,14 +43,14 @@ export default function MainLayout() {
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.role - y.role); 
                                 console.log('포지션 정렬 완료!! 선수목록 \n', seasonInfo[i]);
-                                setSeasonInfo(seasonInfoCopy)
+                                setSeasonInfo(seasonInfoCopy); 
+                                return <CardLayout seasonInfo={seasonInfo} order={order}/>;
                             })
                         }}>Position</span></li>
                     </ul>
                 </div>
             </div>
             <CardLayout seasonInfo={seasonInfo} order={order}/>
-            
         </div>
     )
     
