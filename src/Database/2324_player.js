@@ -48,6 +48,14 @@ const player_2324 = [
         season: 2324,
     },
     {
+        first_name: 'Alfie',
+        last_name: 'Gilchrist',
+        position: 'Defender',
+        role: 2,
+        backnumber: 42,
+        season: 2324,
+    },
+    {
         first_name: 'Benoit',
         last_name: 'Badiashile',
         position: 'Centre-back',
@@ -160,6 +168,14 @@ const player_2324 = [
         season: 2324,
     },
     {
+        first_name: 'Cesare',
+        last_name: 'Casadei',
+        position: 'Midfielder',
+        role: 3,
+        backnumber: 31,
+        season: 2324,
+    },
+    {
         first_name: 'Cole',
         last_name: 'Palmer',
         position: 'Midfielder / Winger',
@@ -189,6 +205,14 @@ const player_2324 = [
         position: 'Winger',
         role: 4,
         backnumber: 11,
+        season: 2324,
+    },
+    {
+        first_name: 'Diego',
+        last_name: 'Moreira',
+        position: 'Winger',
+        role: 4,
+        backnumber: 43,
         season: 2324,
     },
     {
