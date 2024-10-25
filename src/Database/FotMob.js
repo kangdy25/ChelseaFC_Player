@@ -17,8 +17,18 @@ export default async function fotmobFunc() {
 
         // Chelsea FC Data 가져오기
         let team = await fotmob.getTeam("8455", "overview", "team", "Premier League/Chelsea")
+        // console.log(team)
         // Chelsea FC 수비수 데이터들 가져오기
-        console.log(team.squad[2].members)
+        // console.log(team.squad[2].members)
+        // Chelsea FC 미드필더 데이터들 가져오기
+        // console.log(team.squad[3].members)
+
+        // 티아고 실바 선수 데이터 가져오기
+        // let player = await fotmob.getPlayer("80562")
+        // 엔조 페르난데스 선수 2023/2024 시즌 데이터 가져오기
+        let player = await fotmob.getPlayer("1137705")
+        console.log(player.careerHistory.careerItems.senior.seasonEntries[0].tournamentStats)
+        
     } catch {
         console.error('앙')
     }
