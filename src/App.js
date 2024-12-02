@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import "./index.css";
 import Header from './UI/Header.jsx';
 import MainLayout from './UI/MainLayout.jsx';
 import { Routes, Route } from 'react-router-dom'
