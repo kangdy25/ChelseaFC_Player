@@ -1,21 +1,29 @@
 import CardLayout from "../component/CardLayout";
-
-import player2223 from '../Database/2223_player'
 import player2324 from '../Database/2324_player'
-import { useState } from "react";
+import player2425 from '../Database/2425_player'
+import { useState, useEffect} from "react";
 
 export default function MainLayout() {
-    let [seasonInfo, setSeasonInfo] = useState([player2223, player2324]);
-    let [order, setOrder] = useState(1);
+    let [seasonInfo, setSeasonInfo] = useState([player2324, player2425]);
+    let [order, setOrder] = useState(()=>{
+        const savedOrder = localStorage.getItem('order');
+        return savedOrder ? savedOrder : 1;  // 2024-2025로 기본값 설정
+    });
+
+    // order 상태가 변경될 때마다 localStorage에 저장
+    useEffect(() => {
+        localStorage.setItem('order', order);
+    }, [order]);
+
     return (
         <div>
             <div className="Navbar">
                 <div className="Navbar__dropbox">  
-                    <select name="Season" defaultValue={1} onChange={(e)=>{
+                    <select name="Season" defaultValue={order} onChange={(e)=>{
                         setOrder(e.target.value)
                     }}>
-                        <option value={0}>2022-2023</option>
-                        <option value={1}>2023-2024</option>
+                        <option value={0}>2023-2024</option>
+                        <option value={1}>2024-2025</option>
                     </select>
                 </div>
                 <div className="Navbar__sort">

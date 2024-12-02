@@ -8,8 +8,16 @@ export default function CardLayout(props) {
                 <div className="card_layout">
                     {
                         props.seasonInfo[props.order].map((a, i)=>{
+                            // url에 맞게 이름 변환
+                            let name = '';
+                            if (a.first_name === '') {
+                                name = a.last_name.replace(" ", "-");
+                            } else {
+                                name = a.first_name + '-' + a.last_name;
+                            }
+
                             const handleClick = ()=>{
-                                navigate(`/player/${a.season}/${a.backnumber}`)
+                                navigate(`/player/${a.season}/${name.toLowerCase()}`)
                             }
 
                             return (

@@ -17,9 +17,9 @@ function App() {
           </div>
         } />
         {/* 선수별 스탯 상세 페이지 */}
-        <Route path="/player/:seaon/:backnumber" element={ 
+        <Route path="/player/:season/:name" element={ 
           <div>선수 스탯 페이지</div> 
-          } />
+        } />
       </Routes>
     </div>
   );
