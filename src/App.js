@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
 
   return (
-    <div className="App">
+    <div className="App m-0">
       <Routes>
         {/* 매인 페이지 */}
         <Route exact path="/" element={ 
