@@ -12,6 +12,5 @@ ChelseaFC 선수 리스트 및 각 선수 스탯 분석 웹사이트
 ## 사용할 기술 스택
 - Frontend: React.JS, SCSS(or TailwindCSS)
 - Backend: X
-- Mobile: PWA (Progress Web App)
 
 ### Chelsea FC Official Website 크롤링
