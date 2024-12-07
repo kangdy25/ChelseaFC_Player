@@ -17,18 +17,24 @@ export default function MainLayout() {
 
     return (
         <div>
-            <div className="Navbar">
+            <div className="Navbar relative flex justify-between items-center w-calc-full-200px h-[75px] left-[200px] px-[40px] py-0 text-white bg-customBlue border-white border-b text-center
+            md:left-0 md:p-0 md:w-full sm:left-0 sm:p-0 sm:w-full sm:h-[160px] sm:flex-col sm:items-center sm:justify-center">
                 <div className="Navbar__dropbox">  
-                    <select name="Season" defaultValue={order} onChange={(e)=>{
+                    <select className="font-sans text-[1rem] font-medium leading-[1.5] text-slate-600 bg-white m-0 rounded-[0.5em] border-b border-slate-400 py-[0.55em] pr-[1.4em] pl-[0.8em] focus:outline-none disabled:opacity-50 md:ml-[10px]" 
+                    
+                    name="Season" defaultValue={order} onChange={(e)=>{
                         setOrder(e.target.value)
                     }}>
                         <option value={0}>2023-2024</option>
                         <option value={1}>2024-2025</option>
                     </select>
                 </div>
-                <div className="Navbar__sort">
-                    <ul>
-                        <li><span onClick={()=>{
+                <div className="Navbar__sort flex justify-center md:p-0 sm:my-[20px]">
+                    <ul className="list-none flex flex-row md:p-0">
+                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                            <span className="no-underline text-white cursor-pointer"
+                            onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1);
@@ -37,7 +43,10 @@ export default function MainLayout() {
                                 return <CardLayout seasonInfo={seasonInfo} order={order}/>;
                             })
                         }}>Name</span></li>
-                        <li><span onClick={()=>{
+                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                            <span className="no-underline text-white cursor-pointer"
+                            onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.backnumber - y.backnumber); 
@@ -46,7 +55,10 @@ export default function MainLayout() {
                                 return <CardLayout seasonInfo={seasonInfo} order={order}/>;
                             })
                         }}>Number</span></li>
-                        <li><span onClick={()=>{
+                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                            <span className="no-underline text-white cursor-pointer"
+                            onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
                             seasonInfoCopy.map((a, i) => {
                                 a.sort((x, y) => x.role - y.role); 
