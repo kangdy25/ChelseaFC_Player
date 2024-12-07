@@ -6,6 +6,7 @@ const player_2425 = [
         role: 1,
         backnumber: 1,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Filip',
@@ -14,6 +15,7 @@ const player_2425 = [
         role: 1,
         backnumber: 12,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Marcus',
@@ -22,6 +24,7 @@ const player_2425 = [
         role: 1,
         backnumber: 13,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Lucas',
@@ -30,6 +33,7 @@ const player_2425 = [
         role: 1,
         backnumber: 47,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Axel',
@@ -38,6 +42,7 @@ const player_2425 = [
         role: 2,
         backnumber: 2,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Marc',
@@ -46,6 +51,7 @@ const player_2425 = [
         role: 2,
         backnumber: 3,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Tosin',
@@ -54,6 +60,7 @@ const player_2425 = [
         role: 2,
         backnumber: 4,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Benoit',
@@ -62,6 +69,7 @@ const player_2425 = [
         role: 2,
         backnumber: 5,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Levi',
@@ -70,6 +78,7 @@ const player_2425 = [
         role: 2,
         backnumber: 6,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Ben',
@@ -78,6 +87,7 @@ const player_2425 = [
         role: 2,
         backnumber: 21,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Reece',
@@ -86,6 +96,7 @@ const player_2425 = [
         role: 2,
         backnumber: 24,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Malo',
@@ -94,6 +105,7 @@ const player_2425 = [
         role: 2,
         backnumber: 27,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Wesley',
@@ -102,6 +114,7 @@ const player_2425 = [
         role: 2,
         backnumber: 29,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Renato',
@@ -110,6 +123,7 @@ const player_2425 = [
         role: 2,
         backnumber: 40,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Enzo',
@@ -118,6 +132,7 @@ const player_2425 = [
         role: 3,
         backnumber: 8,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Carney',
@@ -126,6 +141,7 @@ const player_2425 = [
         role: 3,
         backnumber: 17,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Kiernan',
@@ -134,6 +150,7 @@ const player_2425 = [
         role: 3,
         backnumber: 22,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Moises',
@@ -142,6 +159,7 @@ const player_2425 = [
         role: 3,
         backnumber: 25,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Cesare',
@@ -150,6 +168,7 @@ const player_2425 = [
         role: 3,
         backnumber: 31,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Omari',
@@ -158,6 +177,7 @@ const player_2425 = [
         role: 3,
         backnumber: 37,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Romeo',
@@ -166,6 +186,7 @@ const player_2425 = [
         role: 3,
         backnumber: 45,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Pedro',
@@ -174,6 +195,7 @@ const player_2425 = [
         role: 4,
         backnumber: 7,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Mykhailo',
@@ -182,6 +204,7 @@ const player_2425 = [
         role: 4,
         backnumber: 10,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Noni',
@@ -190,14 +213,16 @@ const player_2425 = [
         role: 4,
         backnumber: 11,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: '',
         last_name: 'Joao Felix',
-        position: 'Forward / Attacking Midfielder',
+        position: 'Attacking Midfielder / Winger',
         role: 4,
         backnumber: 14,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Nicolas',
@@ -206,6 +231,7 @@ const player_2425 = [
         role: 4,
         backnumber: 15,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Christopher',
@@ -214,6 +240,7 @@ const player_2425 = [
         role: 4,
         backnumber: 18,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Jadon',
@@ -222,6 +249,7 @@ const player_2425 = [
         role: 4,
         backnumber: 19,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Cole',
@@ -230,6 +258,7 @@ const player_2425 = [
         role: 4,
         backnumber: 20,
         season: 2425,
+        isChelsea: 1,
     },
     {
         first_name: 'Marc',
@@ -238,6 +267,7 @@ const player_2425 = [
         role: 4,
         backnumber: 38,
         season: 2425,
+        isChelsea: 1,
     },
 
 ]
