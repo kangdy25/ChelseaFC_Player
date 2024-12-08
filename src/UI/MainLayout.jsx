@@ -32,7 +32,7 @@ export default function MainLayout() {
                 <div className="Navbar__sort flex justify-center md:p-0 sm:my-[20px]">
                     <ul className="list-none flex flex-row md:p-0">
                         <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
-                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
@@ -44,7 +44,7 @@ export default function MainLayout() {
                             })
                         }}>Name</span></li>
                         <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
-                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
@@ -56,7 +56,7 @@ export default function MainLayout() {
                             })
                         }}>Number</span></li>
                         <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
-                        hover:cyan-gradient hover:sortbtnHoverShadow">
+                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{
                             let seasonInfoCopy = [...seasonInfo];
