@@ -1,13 +1,18 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
-export default function CardLayout(props) {
+export default function CardLayout() {
+    const seasonInfo = useSelector((state)=> state.seasonInfo)
+    const order = useSelector((state) => state.order)
+
     const navigate = useNavigate();
     const url = '/img/player/';
+    
     return (
-        <div className="background absolute left-[200px] w-calc-full-200px bg-background-gradient md:left-0 md:w-full md:top-[175px] sm:top-[330px]">
+        <article className="background absolute left-[200px] w-calc-full-200px bg-background-gradient md:left-0 md:w-full md:top-[175px] sm:top-[330px]">
                 <div className="card_layout grid grid-cols-[repeat(auto-fill,minmax(250px,0.5fr))] my-5 ml-5 justify-center content-center gap-2.5 px-5 pb-5">
                     {
-                        props.seasonInfo[props.order].map((a, i)=>{
+                        seasonInfo[order].map((a, i)=>{
                             // url에 맞게 이름 변환
                             let name = '';
                             if (a.first_name === '') {
@@ -42,6 +47,6 @@ export default function CardLayout(props) {
                         }) 
                     }
             </div>
-        </div>
+        </article>
     )
 }
