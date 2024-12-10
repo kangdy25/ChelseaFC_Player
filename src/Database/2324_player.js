@@ -1,5 +1,6 @@
 const player_2324 = [
     {
+        url_name: 'robert-sanchez',
         first_name: 'Robert',
         last_name: 'Sanchez',
         position: 'Goalkeeper',
@@ -9,6 +10,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'marcus-bettinelli',
         first_name: 'Marcus',
         last_name: 'Bettinelli',
         position: 'Goalkeeper',
@@ -18,6 +20,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'djordje-petrovic',
         first_name: 'Djordje',
         last_name: 'Petrovic',
         position: 'Goalkeeper',
@@ -27,6 +30,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'lucas-bergstrom',
         first_name: 'Lucas',
         last_name: 'Bergstrom',
         position: 'Goalkeeper',
@@ -36,6 +40,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'axel-disasi',
         first_name: 'Axel',
         last_name: 'Disasi',
         position: 'Centre-back',
@@ -45,6 +50,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'marc-cucurella',
         first_name: 'Marc',
         last_name: 'Cucurella',
         position: 'Defender / Wing-back',
@@ -54,6 +60,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'alfie-gilchrist',
         first_name: 'Alfie',
         last_name: 'Gilchrist',
         position: 'Defender',
@@ -63,6 +70,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'benoit-badiashile',
         first_name: 'Benoit',
         last_name: 'Badiashile',
         position: 'Centre-back',
@@ -72,6 +80,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'thiago-silva',
         first_name: '',
         last_name: 'Thiago Silva',
         position: 'Centre-back',
@@ -81,6 +90,7 @@ const player_2324 = [
         isChelsea: 0,
     },
     {
+        url_name: 'trevoh-chalobah',
         first_name: 'Trevoh',
         last_name: 'Chalobah',
         position: 'Centre-back',
@@ -90,6 +100,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'ben-chilwell',
         first_name: 'Ben',
         last_name: 'Chilwell',
         position: 'Left-back / Wing-back',
@@ -99,6 +110,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'reece-james',
         first_name: 'Reece',
         last_name: 'James',
         position: 'Defender / Wing-back',
@@ -108,6 +120,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'levi-colwill',
         first_name: 'Levi',
         last_name: 'Colwill',
         position: 'Centre-back',
@@ -117,6 +130,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'malo-gusto',
         first_name: 'Malo',
         last_name: 'Gusto',
         position: 'Right-back',
@@ -126,6 +140,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'wesley-fofana',
         first_name: 'Wesley',
         last_name: 'Fofana',
         position: 'Centre-back',
@@ -135,6 +150,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'enzo-fernandez',
         first_name: 'Enzo',
         last_name: 'Fernandez',
         position: 'Midfielder',
@@ -144,6 +160,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'lesley-ugochukwu',
         first_name: 'Lesley',
         last_name: 'Ugochukwu',
         position: 'Midfielder',
@@ -153,6 +170,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'carney-chukwuemeka',
         first_name: 'Carney',
         last_name: 'Chukwuemeka',
         position: 'Midfielder',
@@ -162,6 +180,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'conor-gallagher',
         first_name: 'Conor',
         last_name: 'Gallagher',
         position: 'Midfielder',
@@ -171,6 +190,7 @@ const player_2324 = [
         isChelsea: 0,
     },
     {
+        url_name: 'moises-caicedo',
         first_name: 'Moises',
         last_name: 'Caicedo',
         position: 'Midfielder',
@@ -180,6 +200,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'romeo-lavia',
         first_name: 'Romeo',
         last_name: 'Lavia',
         position: 'Midfielder',
@@ -189,6 +210,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'cesare-casadei',
         first_name: 'Cesare',
         last_name: 'Casadei',
         position: 'Midfielder',
@@ -198,6 +220,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'cole-palmer',
         first_name: 'Cole',
         last_name: 'Palmer',
         position: 'Midfielder / Winger',
@@ -207,6 +230,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'raheem-sterling',
         first_name: 'Raheem',
         last_name: 'Sterling',
         position: 'Winger',
@@ -216,6 +240,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'mykhailo-mudryk',
         first_name: 'Mykhailo',
         last_name: 'Mudryk',
         position: 'Winger',
@@ -225,6 +250,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'noni-madueke',
         first_name: 'Noni',
         last_name: 'Madueke',
         position: 'Winger',
@@ -234,6 +260,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'diego-moreira',
         first_name: 'Diego',
         last_name: 'Moreira',
         position: 'Winger',
@@ -243,6 +270,7 @@ const player_2324 = [
         isChelsea: 0,
     },
     {
+        url_name: 'nicolas-jackson',
         first_name: 'Nicolas',
         last_name: 'Jackson',
         position: 'Striker',
@@ -252,6 +280,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'christopher-nkunku',
         first_name: 'Christopher',
         last_name: 'Nkunku',
         position: 'Striker',
@@ -261,6 +290,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'armando-broja',
         first_name: 'Armando',
         last_name: 'Broja',
         position: 'Striker',
@@ -270,6 +300,7 @@ const player_2324 = [
         isChelsea: 1,
     },
     {
+        url_name: 'deivid-washington',
         first_name: 'Deivid',
         last_name: 'Washington',
         position: 'Forward',

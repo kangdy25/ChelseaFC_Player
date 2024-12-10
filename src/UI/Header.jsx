@@ -11,7 +11,7 @@ export default function Header() {
             md:flex md:w-screen md:pr-[100px] md:justify-center md:items-center md:mb-0 sm:pr-0">
                 Chelsea FC Player Data
             </h1>
-            <p className="font-serif text-center text-customSkyblue pb-[20px] md:hidden">
+            <p className="font-serif text-center text-customSkyblue pb-[20px] md:hidden sm:hidden">
                 " Pride of London "
             </p>
         </header>

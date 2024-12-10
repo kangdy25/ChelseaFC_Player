@@ -9,20 +9,12 @@ export default function CardLayout() {
     const url = '/img/player/';
     
     return (
-        <article className="background absolute left-[200px] w-calc-full-200px bg-background-gradient md:left-0 md:w-full md:top-[175px] sm:top-[330px]">
+        <article className="background absolute left-[200px] w-calc-full-200px bg-background-gradient md:left-0 md:w-full md:top-[175px] sm:top-[330px] sm:left-0 sm:w-full">
                 <div className="card_layout grid grid-cols-[repeat(auto-fill,minmax(250px,0.5fr))] my-5 ml-5 justify-center content-center gap-2.5 px-5 pb-5">
                     {
                         seasonInfo[order].map((a, i)=>{
-                            // url에 맞게 이름 변환
-                            let name = '';
-                            if (a.first_name === '') {
-                                name = a.last_name.replace(" ", "-");
-                            } else {
-                                name = a.first_name + '-' + a.last_name;
-                            }
-
                             const handleClick = ()=>{
-                                navigate(`/player/${a.season}/${name.toLowerCase()}`)
+                                navigate(`/player/${a.season}/${a.url_name}`)
                             }
 
                             return (
