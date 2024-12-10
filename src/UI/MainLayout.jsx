@@ -8,7 +8,7 @@ export default function MainLayout() {
     const seasonInfo = useSelector((state) => state.seasonInfo)
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch();
-
+    console.log(seasonInfo)
     // order 상태가 변경될 때마다 localStorage에 저장
     useEffect(() => {
         localStorage.setItem('order', order);
@@ -40,7 +40,6 @@ export default function MainLayout() {
                                     );
                                 });
                                 dispatch(setSeasonInfo(sortedSeasonInfo));
-                                console.log('이름 정렬 완료!!', sortedSeasonInfo[order]);
                                 return <CardLayout />;
                         }}>Name</span></li>
                         <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
@@ -53,7 +52,6 @@ export default function MainLayout() {
                                     );
                                 });
                                 dispatch(setSeasonInfo(sortedSeasonInfo));
-                                console.log('등번호 정렬 완료!!', sortedSeasonInfo[order]);
                                 return <CardLayout />;
                         }}>Number</span></li>
                         <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
@@ -65,14 +63,13 @@ export default function MainLayout() {
                                         x.role - y.role
                                     );
                                 });
-                                console.log('포지션 정렬 완료!! 선수목록 \n', seasonInfo[order]);
                                 dispatch(setSeasonInfo(sortedSeasonInfo));
                                 return <CardLayout />;
                         }}>Position</span></li>
                     </ul>
                 </div>
             </div>
-            <CardLayout order={order}/>
+            <CardLayout />
         </section>
     )
     
