@@ -1,20 +1,24 @@
-# ChelseaFC Player
-ChelseaFC 선수 리스트 및 각 선수 스탯 분석 웹사이트
+# Chelsea FC Player
+![chelsea](./public/img/chelsea.jpg)
 
+Chelsea FC 선수 리스트 및 각 선수 스탯 분석 웹사이트
 ## 구현할 기능
 - Dashboard 스타일 Page
-- 각 선수 카드 컴포넌트 제작 (클릭시 세부 페이지로 이동)
+- 각 선수 카드 컴포넌트 제작 (클릭 시 세부 페이지로 이동)
 - 선수 세부 페이지를 위한 라우팅 (라우팅은 "시즌과 선수명"을 기준으로)
 - 반응형 웹 (flex, grid, mediaquery)
-- 포지션 별 선수 주 스탯 다르게 제작 (필드플레이어(공격수, 미드필더, 수비수), 골키퍼)
+- 선수 데이터 크롤링
+- 포지션 별 선수 주 스탯 다르게 제작 (필드플레이어, 골키퍼)
 - 404 Page
 
 ## 사용할 기술 스택
-- React.js
-- react-router-dom (Routing)
-- TailwindCSS (Styling)
-- Puppeteer (Crawling)
-- Redux Toolkit (State Management)
+- React.js (front-end)
+    - react-router-dom (Routing)
+    - TailwindCSS (Styling)
+    - Redux Toolkit (State Management)
+- Node.js (Back-end)
+    - Express.js (Server)
+    - Puppeteer (Crawling)
 
 ## 트러블 슈팅
 FotMob API가 현재 막히게 되었다.  
