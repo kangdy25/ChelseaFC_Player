@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import seasonInfoReducer from '../slice/seasonInfoSlice.js';
-import orderRedever from '../slice/orderSlice.js'
+import orderReducer from '../slice/orderSlice.js'
+import statsReducer from '../slice/statsSlice.js'
 
 const store = configureStore({
     reducer: {
         seasonInfo: seasonInfoReducer,
-        order: orderRedever,
+        order: orderReducer,
+        stats: statsReducer,
     }
 }) 
 
