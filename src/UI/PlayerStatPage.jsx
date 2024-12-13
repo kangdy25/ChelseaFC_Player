@@ -1,13 +1,23 @@
-import React, {useState} from 'react'
-import { useSelector } from 'react-redux';
+import {React, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { setStats, resetStats } from "../redux/slice/statsSlice"
+import FieldPlayer from "../component/FieldPlayer"
+import Goalkeeper from "../component/Goalkeeper"
+import Loading from "./Loading"
 
 const PlayerStatPage = () => {
     const seasonInfo = useSelector((state) => state.seasonInfo)
-    const [stats, setStats] = useState(null);
+    const stats = useSelector((state) => state.stats)
+    const dispatch = useDispatch();
+
     const {season, name} = useParams();
 
-    console.log(season, name)
+    useEffect(() => {
+        // 새로운 선수에 대한 데이터 로드 전 상태 초기화
+        dispatch(resetStats());
+    }, [name, season, dispatch]);
+
     const playerData = seasonInfo.find(
         (seasonArray) => seasonArray.some(player => player.season === parseInt(season)))?.find(
             (player)=> player.url_name === name
@@ -38,8 +48,7 @@ const PlayerStatPage = () => {
             
             // /crawl 엔드포인트 호출
             const data = await response.json();
-            console.log(data)
-            setStats(data);
+            dispatch(setStats(data));
         } catch (error) {
             console.error('Error fetching stats:', error);
         }
@@ -48,16 +57,7 @@ const PlayerStatPage = () => {
         <div className="flex flex-col justify-center items-center">
             <h1 className="text-7xl">Player Stats</h1>
                 <button className="mt-5 bg-red-400 cursor-pointer border border-slate-700 p-2 rounded-lg" onClick={() => fetchStats(playerData)}>Fetch Player Stats</button>
-                {stats && (
-                    <ul>
-                        <li>Appearances: {stats.appearances}</li>
-                        <li>Minutes Played: {stats.minutesPlayed}</li>
-                        <li>Starts: {stats.starts}</li>
-                        <li>Subbed On/Off: {stats.subbedOnOff}</li>
-                        <li>Total Touches: {stats.totalTouches}</li>
-                        <li>Tackles Won/Lost: {stats.tacklesWonLost}</li>
-                    </ul>
-                )}
+                {!stats ? <Loading/> : (stats.role !== 0 ? <FieldPlayer /> : <Goalkeeper />) }
         </div>
     )
 }
