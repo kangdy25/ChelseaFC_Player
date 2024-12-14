@@ -81,8 +81,8 @@ const player_2324 = [
     },
     {
         url_name: 'thiago-silva',
-        first_name: '',
-        last_name: 'Thiago Silva',
+        first_name: 'Thiago',
+        last_name: 'Silva',
         position: 'Centre-back',
         role: 1,
         backnumber: 6,

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const FieldPlayer = () => {
     const stats = useSelector((state) => state.stats)
-    console.log(stats)
+    
   return (
     <div>
         <h4 className='text-lg mt-5'>{`${stats.season} - ${stats.first_name} ${stats.last_name}`}</h4>

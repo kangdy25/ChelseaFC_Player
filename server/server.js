@@ -16,14 +16,9 @@ app.use(express.json());
 app.post('/crawl', async(req, res) => {
     try {
         const { playerData } = req.body; 
-        let onSeason = 1
+        let onSeason = 1;
         if (!playerData) {
             return res.status(400).json({ error: 'Player name is required' });
-        }
-
-        // 첼시 선수가 아닌 경우 404 에러
-        if(!playerData.isChelsea) {
-            return res.status(404).json({ message: "Player not found on Chelsea roster" });
         }
 
         // 브라우저 및 페이지 초기화
@@ -142,7 +137,7 @@ app.post('/crawl', async(req, res) => {
                 })
             }
         } 
-        // 데이터가 없는 경우
+        // 첼시 소속이지만 시즌 데이터가 없는 경우
         else {
             // 필드플레이어 데이터
             if (playerData.role !== 0) {

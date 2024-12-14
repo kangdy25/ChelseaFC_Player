@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 const Goalkeeper = () => {
     const stats = useSelector((state) => state.stats)
-    console.log(stats)
     
   return (
     <div>
