@@ -241,8 +241,8 @@ const player_2425 = [
     },
     {
         url_name: 'joao-felix',
-        first_name: '',
-        last_name: 'Joao Felix',
+        first_name: 'Joao',
+        last_name: 'Felix',
         position: 'Attacking Midfielder / Winger',
         role: 3,
         backnumber: 14,

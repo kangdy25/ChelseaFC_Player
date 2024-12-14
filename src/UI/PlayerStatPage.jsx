@@ -2,6 +2,7 @@ import {React, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setStats, resetStats } from "../redux/slice/statsSlice"
+import NotFoundPage from './NotFoundPage';
 import FieldPlayer from "../component/FieldPlayer"
 import Goalkeeper from "../component/Goalkeeper"
 import Loading from "./Loading"
@@ -22,8 +23,10 @@ const PlayerStatPage = () => {
         (seasonArray) => seasonArray.some(player => player.season === parseInt(season)))?.find(
             (player)=> player.url_name === name
     )
-    if (!playerData) {
-        return <div>선수 데이터를 찾을 수 없습니다.</div>;
+
+    // 현재 첼시 소속이 아닌 선수는 404 에러 처리
+    if (!playerData.isChelsea) {
+        return <NotFoundPage/>;
     }
     
     const fetchStats = async (playerData) => {
