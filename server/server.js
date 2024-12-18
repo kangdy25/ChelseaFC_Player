@@ -14,24 +14,23 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 app.post('/crawl', async(req, res) => {
+    // 브라우저 및 페이지 초기화
+    const browser = await puppeteer.launch({ headless: false }); // headless 모드
+    const page = await browser.newPage();
+    const { playerData } = req.body; 
+
     try {
-        const { playerData } = req.body; 
         let onSeason = 1;
         if (!playerData) {
             return res.status(400).json({ error: 'Player name is required' });
         }
-
-        // 브라우저 및 페이지 초기화
-        const browser = await puppeteer.launch({ headless: false }); // headless 모드
-        const page = await browser.newPage();
-
         // 선수 프로필 URL로 이동
         await page.goto(`https://www.chelseafc.com/en/teams/profile/${playerData.url_name}`);
         // 페이지의 크기를 설정한다.
         await page.setViewport({ width: 1080, height: 3000 });
 
         // 시즌 정보 드롭다운 박스 클릭
-        await page.waitForSelector('.dropdown__button');
+        await page.waitForSelector('.dropdown__button', { timeout: 5000 });
         const element = await page.$$('.dropdown__button')
         await element[1].click()
 
@@ -58,11 +57,11 @@ app.post('/crawl', async(req, res) => {
                 onSeason = 0;
             }
         }
-        
+
         // 모든 스탯 요소의 텍스트를 배열로 추출
         await page.waitForSelector('.player-stat__value');
         const statValues = await page.$$eval('.player-stat__value', els => els.map(el => el.textContent.trim())); 
-        
+
         console.log(statValues)
         console.log(playerData.role)
         await browser.close();
@@ -208,9 +207,81 @@ app.post('/crawl', async(req, res) => {
             }
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('An error occurred during crawling.');
-    }
+        // 크롤링이 되지 않는 경우 'x' 데이터 제공
+        try {
+            // 필드플레이어 데이터
+            if (playerData.role !== 0) {
+                res.json({
+                    season: playerData.season,
+                    first_name: playerData.first_name,
+                    last_name: playerData.last_name,
+                    role: playerData.role,
+                    
+                    appearances: 'x',
+                    minutesPlayed: 'x',
+                    starts: 'x',
+                    subbedOnOff: 'x',
+                    
+                    totalTouches: 'x',
+                    tacklesWonLost: 'x',
+                    Cleareances: 'x',
+                    Interceptions: 'x',
+                    DuelsWonLost: 'x',
+                    Blocks: 'x',
+                    
+                    TotalGoals: 'x',
+                    GoalsPerMatch: 'x',
+                    MinutesPerGoal: 'x',
+                    
+                    TotalPasses: 'x',
+                    KeyPasses: 'x',
+                    SuccessfulCrosses: 'x',
+                    Assists: 'x',
+                    FoulsDrawn: 'x',
+                    FoulsCommitted: 'x',
+                })
+            } 
+            // 골키퍼 데이터
+            else {
+                res.json({
+                    season: playerData.season,
+                    first_name: playerData.first_name,
+                    last_name: playerData.last_name,
+                    role: playerData.role,
+                    
+                    appearances: 'x',
+                    minutesPlayed: 'x',
+                    starts: 'x',
+                    subbedOnOff: 'x',
+                    
+                    totalTouches: 'x',
+                    tacklesWonLost: 'x',
+                    Cleareances: 'x',
+                    Interceptions: 'x',
+                    DuelsWonLost: 'x',
+                    Blocks: 'x',
+                    
+                    TotalSaves: 'x',
+                    CleanSheets: 'x',
+                    SavesMadeCatch: 'x',
+                    SavesMadePunch: 'x',
+                    Punches: 'x',
+                    Catches: 'x',
+                    
+                    TotalPasses: 'x',
+                    KeyPasses: 'x',
+                    SuccessfulCrosses: 'x',
+                    Assists: 'x',
+                    FoulsDrawn: 'x',
+                    FoulsCommitted: 'x',
+                })
+            } 
+        } catch (error) {
+            console.error('이것도 안 됨?')
+        }
+    } finally {
+        await browser.close();
+    }   
 })
 
 // React 정적 파일 서빙
