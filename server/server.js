@@ -15,10 +15,110 @@ app.use(express.json());
 
 app.post('/crawl', async(req, res) => {
     // 브라우저 및 페이지 초기화
-    const browser = await puppeteer.launch({ headless: false }); // headless 모드
+    const browser = await puppeteer.launch({ headless: true }); // headless 모드
     const page = await browser.newPage();
     const { playerData } = req.body; 
 
+    // 크롤링을 위한 데이터 셋업
+    const createResponseData = (playerData, statValues = null)=>{
+        const isGoalkeeper = (playerData.role === 0);
+
+        const defaultData = {
+            appearances: 'x',
+            minutesPlayed: 'x',
+            starts: 'x',
+            subbedOnOff: 'x',
+            totalTouches: 'x',
+            tacklesWonLost: 'x',
+            Cleareances: 'x',
+            Interceptions: 'x',
+            DuelsWonLost: 'x',
+            Blocks: 'x',
+        };
+    
+        const extraData = isGoalkeeper
+        ? {
+            TotalSaves: 'x',
+            CleanSheets: 'x',
+            SavesMadeCatch: 'x',
+            SavesMadePunch: 'x',
+            Punches: 'x',
+            Catches: 'x',
+        }
+        : {
+            TotalGoals: 'x',
+            GoalsPerMatch: 'x',
+            MinutesPerGoal: 'x',
+        };
+
+        const commonData = {
+            TotalPasses: 'x',
+            KeyPasses: 'x',
+            SuccessfulCrosses: 'x',
+            Assists: 'x',
+            FoulsDrawn: 'x',
+            FoulsCommitted: 'x',
+        };
+
+        if (statValues) {
+            Object.assign(defaultData, {
+                appearances: statValues[0],
+                minutesPlayed: statValues[1],
+                starts: statValues[2],
+                subbedOnOff: statValues[3],
+                totalTouches: statValues[4],
+                tacklesWonLost: statValues[5],
+                Cleareances: statValues[6],
+                Interceptions: statValues[7],
+                DuelsWonLost: statValues[8],
+                Blocks: statValues[9],
+            });
+    
+            if (isGoalkeeper) {
+                Object.assign(extraData, {
+                    TotalSaves: statValues[10],
+                    CleanSheets: statValues[11],
+                    SavesMadeCatch: statValues[12],
+                    SavesMadePunch: statValues[13],
+                    Punches: statValues[14],
+                    Catches: statValues[15],
+                });
+                Object.assign(commonData, {
+                    TotalPasses: statValues[17],
+                    KeyPasses: statValues[18],
+                    SuccessfulCrosses: statValues[19],
+                    Assists: statValues[20],
+                    FoulsDrawn: statValues[21],
+                    FoulsCommitted: statValues[22],
+                }) 
+            } else {
+                Object.assign(extraData, {
+                    TotalGoals: statValues[11],
+                    GoalsPerMatch: statValues[12],
+                    MinutesPerGoal: statValues[13],
+                });
+                Object.assign(commonData, {
+                    TotalPasses: statValues[15],
+                    KeyPasses: statValues[16],
+                    SuccessfulCrosses: statValues[17],
+                    Assists: statValues[18],
+                    FoulsDrawn: statValues[19],
+                    FoulsCommitted: statValues[20],
+                }) 
+            }
+        }
+        return {
+            season: playerData.season,
+            first_name: playerData.first_name,
+            last_name: playerData.last_name,
+            role: playerData.role,
+            ...defaultData,
+            ...extraData,
+            ...commonData,
+        };
+    }
+
+    // 크롤링 시작 코드
     try {
         let onSeason = 1;
         if (!playerData) {
@@ -64,218 +164,13 @@ app.post('/crawl', async(req, res) => {
 
         console.log(statValues)
         console.log(playerData.role)
-        await browser.close();
 
         // 크롤링한 데이터를 반환
-        if (onSeason) {
-            // 필드플레이어 데이터
-            if (playerData.role !== 0) {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-    
-                    appearances: statValues[0],
-                    minutesPlayed: statValues[1],
-                    starts: statValues[2],
-                    subbedOnOff: statValues[3],
-
-                    totalTouches: statValues[4],
-                    tacklesWonLost: statValues[5],
-                    Cleareances: statValues[6],
-                    Interceptions: statValues[7],
-                    DuelsWonLost: statValues[8],
-                    Blocks: statValues[9],
-
-                    TotalGoals: statValues[11],
-                    GoalsPerMatch: statValues[12],
-                    MinutesPerGoal: statValues[13],
-
-                    TotalPasses: statValues[15],
-                    KeyPasses: statValues[16],
-                    SuccessfulCrosses: statValues[17],
-                    Assists: statValues[18],
-                    FoulsDrawn: statValues[19],
-                    FoulsCommitted: statValues[20],
-                })
-            } 
-            // 골키퍼 데이터
-            else {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-    
-                    appearances: statValues[0],
-                    minutesPlayed: statValues[1],
-                    starts: statValues[2],
-                    subbedOnOff: statValues[3],
-
-                    totalTouches: statValues[4],
-                    tacklesWonLost: statValues[5],
-                    Cleareances: statValues[6],
-                    Interceptions: statValues[7],
-                    DuelsWonLost: statValues[8],
-                    Blocks: statValues[9],
-
-                    TotalSaves: statValues[10],
-                    CleanSheets: statValues[11],
-                    SavesMadeCatch: statValues[12],
-                    SavesMadePunch: statValues[13],
-                    Punches: statValues[14],
-                    Catches: statValues[15],
-
-                    TotalPasses: statValues[17],
-                    KeyPasses: statValues[18],
-                    SuccessfulCrosses: statValues[19],
-                    Assists: statValues[20],
-                    FoulsDrawn: statValues[21],
-                    FoulsCommitted: statValues[22],
-                })
-            }
-        } 
-        // 첼시 소속이지만 시즌 데이터가 없는 경우
-        else {
-            // 필드플레이어 데이터
-            if (playerData.role !== 0) {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-    
-                    appearances: 'x',
-                    minutesPlayed: 'x',
-                    starts: 'x',
-                    subbedOnOff: 'x',
-
-                    totalTouches: 'x',
-                    tacklesWonLost: 'x',
-                    Cleareances: 'x',
-                    Interceptions: 'x',
-                    DuelsWonLost: 'x',
-                    Blocks: 'x',
-
-                    TotalGoals: 'x',
-                    GoalsPerMatch: 'x',
-                    MinutesPerGoal: 'x',
-                    
-                    TotalPasses: 'x',
-                    KeyPasses: 'x',
-                    SuccessfulCrosses: 'x',
-                    Assists: 'x',
-                    FoulsDrawn: 'x',
-                    FoulsCommitted: 'x',
-                })
-            } 
-            // 골키퍼 데이터
-            else {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-    
-                    appearances: 'x',
-                    minutesPlayed: 'x',
-                    starts: 'x',
-                    subbedOnOff: 'x',
-
-                    totalTouches: 'x',
-                    tacklesWonLost: 'x',
-                    Cleareances: 'x',
-                    Interceptions: 'x',
-                    DuelsWonLost: 'x',
-                    Blocks: 'x',
-
-                    TotalSaves: 'x',
-                    CleanSheets: 'x',
-                    SavesMadeCatch: 'x',
-                    SavesMadePunch: 'x',
-                    Punches: 'x',
-                    Catches: 'x',
-
-                    TotalPasses: 'x',
-                    KeyPasses: 'x',
-                    SuccessfulCrosses: 'x',
-                    Assists: 'x',
-                    FoulsDrawn: 'x',
-                    FoulsCommitted: 'x',
-                })
-            }
-        }
+        res.json(createResponseData(playerData, onSeason ? statValues : null));
     } catch (error) {
         // 크롤링이 되지 않는 경우 'x' 데이터 제공
         try {
-            // 필드플레이어 데이터
-            if (playerData.role !== 0) {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-                    
-                    appearances: 'x',
-                    minutesPlayed: 'x',
-                    starts: 'x',
-                    subbedOnOff: 'x',
-                    
-                    totalTouches: 'x',
-                    tacklesWonLost: 'x',
-                    Cleareances: 'x',
-                    Interceptions: 'x',
-                    DuelsWonLost: 'x',
-                    Blocks: 'x',
-                    
-                    TotalGoals: 'x',
-                    GoalsPerMatch: 'x',
-                    MinutesPerGoal: 'x',
-                    
-                    TotalPasses: 'x',
-                    KeyPasses: 'x',
-                    SuccessfulCrosses: 'x',
-                    Assists: 'x',
-                    FoulsDrawn: 'x',
-                    FoulsCommitted: 'x',
-                })
-            } 
-            // 골키퍼 데이터
-            else {
-                res.json({
-                    season: playerData.season,
-                    first_name: playerData.first_name,
-                    last_name: playerData.last_name,
-                    role: playerData.role,
-                    
-                    appearances: 'x',
-                    minutesPlayed: 'x',
-                    starts: 'x',
-                    subbedOnOff: 'x',
-                    
-                    totalTouches: 'x',
-                    tacklesWonLost: 'x',
-                    Cleareances: 'x',
-                    Interceptions: 'x',
-                    DuelsWonLost: 'x',
-                    Blocks: 'x',
-                    
-                    TotalSaves: 'x',
-                    CleanSheets: 'x',
-                    SavesMadeCatch: 'x',
-                    SavesMadePunch: 'x',
-                    Punches: 'x',
-                    Catches: 'x',
-                    
-                    TotalPasses: 'x',
-                    KeyPasses: 'x',
-                    SuccessfulCrosses: 'x',
-                    Assists: 'x',
-                    FoulsDrawn: 'x',
-                    FoulsCommitted: 'x',
-                })
-            } 
+            res.json(createResponseData(playerData));
         } catch (error) {
             console.error('이것도 안 됨?')
         }
