@@ -20,10 +20,18 @@ app.post('/crawl', async(req, res) => {
     const { playerData } = req.body; 
 
     // 크롤링을 위한 데이터 셋업
-    const createResponseData = (playerData, statValues = null)=>{
+    const createResponseData = (playerData, statValues = null, profileValues = null)=>{
         const isGoalkeeper = (playerData.role === 0);
 
         const defaultData = {
+            fullname: 'x',
+            nationality: 'x',
+            placeOfBirth: 'x',
+            position: 'x',
+            dob: 'x',
+            height: 'x',
+            debut: 'x',
+
             appearances: 'x',
             minutesPlayed: 'x',
             starts: 'x',
@@ -60,8 +68,16 @@ app.post('/crawl', async(req, res) => {
             FoulsCommitted: 'x',
         };
 
-        if (statValues) {
+        if (statValues && profileValues) {
             Object.assign(defaultData, {
+                fullname: profileValues[0],
+                nationality: profileValues[1],
+                placeOfBirth: profileValues[2],
+                position: profileValues[3],
+                dob: profileValues[4],
+                height: profileValues[5],
+                debut: profileValues[6],
+
                 appearances: statValues[0],
                 minutesPlayed: statValues[1],
                 starts: statValues[2],
@@ -111,6 +127,7 @@ app.post('/crawl', async(req, res) => {
             season: playerData.season,
             first_name: playerData.first_name,
             last_name: playerData.last_name,
+            backnumber: playerData.backnumber,
             role: playerData.role,
             ...defaultData,
             ...extraData,
@@ -128,6 +145,10 @@ app.post('/crawl', async(req, res) => {
         await page.goto(`https://www.chelseafc.com/en/teams/profile/${playerData.url_name}`);
         // 페이지의 크기를 설정한다.
         await page.setViewport({ width: 1080, height: 3000 });
+
+        // 선수 프로필 정보들을 배열로 추출
+        await page.waitForSelector('.profile-player-details__item-value');
+        const profileValues = await page.$$eval('.profile-player-details__item-value', els => els.map(el => el.textContent.trim())); 
 
         // 시즌 정보 드롭다운 박스 클릭
         await page.waitForSelector('.dropdown__button', { timeout: 5000 });
@@ -158,15 +179,16 @@ app.post('/crawl', async(req, res) => {
             }
         }
 
-        // 모든 스탯 요소의 텍스트를 배열로 추출
+        // 모든 스탯 요소의 정보들을 배열로 추출
         await page.waitForSelector('.player-stat__value');
         const statValues = await page.$$eval('.player-stat__value', els => els.map(el => el.textContent.trim())); 
 
         console.log(statValues)
+        console.log(profileValues)
         console.log(playerData.role)
 
         // 크롤링한 데이터를 반환
-        res.json(createResponseData(playerData, onSeason ? statValues : null));
+        res.json(createResponseData(playerData, onSeason ? statValues : null, onSeason ? profileValues : null));
     } catch (error) {
         // 크롤링이 되지 않는 경우 'x' 데이터 제공
         try {
