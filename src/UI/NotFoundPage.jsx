@@ -19,7 +19,7 @@ const NotFoundPage = () => {
       <section className='relative w-[calc(100%-200px)] flex flex-col justify-center items-center 
       top-0 left-[200px] h-screen bg-background-gradient bg-cover bg-center 
       
-      md:left-0 md:w-full md:h-[calc(100vh-100px)] sm:left-0 sm:w-full sm:h-[calc(100vh-100px)]' 
+      md:left-0 md:w-full md:h-[calc(100vh-100px)] sm:left-0 sm:w-full sm:h-[calc(100vh-190px)]' 
       style={{ backgroundImage: "url('/img/chelsea.jpg')" }}>
         <div
           className="absolute inset-0 bg-black opacity-50 z-0"
