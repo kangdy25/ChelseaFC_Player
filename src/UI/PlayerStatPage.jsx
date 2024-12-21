@@ -57,7 +57,7 @@ const PlayerStatPage = () => {
         }
     };
     return (
-        <div className="flex flex-col bg-black bg-stat-gradient justify-center items-center text-white">
+        <div className="flex flex-col  justify-center items-center">
             <h1 className="text-7xl">Player Stats</h1>
                 <button className="mt-5 bg-red-400 cursor-pointer border border-slate-700 p-2 rounded-lg" onClick={() => fetchStats(playerData)}>Fetch Player Stats</button>
                 {!stats ? <Loading/> : (stats.role !== 0 ? <FieldPlayer /> : <Goalkeeper />) }
