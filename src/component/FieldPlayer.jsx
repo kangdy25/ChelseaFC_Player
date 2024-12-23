@@ -39,25 +39,22 @@ const FieldPlayer = () => {
     ];
 
   return (
-    <main className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white '>
+    <main className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
           {/* 선수 프로필 */}
-          <section className='flex justify-around shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] rounded-3xl h-96 mx-2 mt-5 my-2 overflow-hidden md:flex-col md:h-full'>
-            <div className='flex flex-row gap-10 md:h-80 md:overflow-hidden lg:gap-4 md:justify-center md:pt-6'>
-              <div className='relative'>
-                <div className='z-0 absolute bottom-[-50%] w-full h-full rounded-full bg-slate-800'>.</div>
-                <img className='relative h-96 p-5 pb-0' src={`/img/player/${stats.season}/${stats.season}${stats.last_name}.webp`} alt="" />
-              </div>
-                <div className='flex flex-col justify-around ml-5 my-2'>
+          <section className='flex border-t border-slate-600 justify-around shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] rounded-3xl h-96 mx-2 mt-5 my-2 overflow-hidden md:flex-col md:h-full sm:flex-col sm:h-full sm:justify-center sm:items-center'>
+            <div className='flex flex-wrap gap-10 lg:gap-4 md:justify-center md:pt-6 sm:flex-col'>
+              <img className='relative h-96 p-5 pb-0' src={`/img/player/${stats.season}/${stats.season}${stats.last_name}.webp`} alt="" />
+              <div className='flex flex-col justify-around ml-5 my-2 sm:items-center sm:gap-4'>
                   <p className=' text-slate-500 text-xl'>{stats.season} Season</p>
                   <div>
                     <h4 className='font-semibold text-4xl text-slate-300 lg:text-3xl'>{stats.first_name}</h4>
                     <h3 className='font-bold text-6xl lg:text-5xl'>{stats.last_name}</h3>
                   </div>
                   <p className='text-8xl font-normal font-serif text-center text-slate-500 lg:text-7xl'>{`${stats.backnumber}`}</p>
-                </div>
+              </div>
             </div>
             
-            <div className='flex flex-col justify-center gap-7 flex-wrap rounded-2xl lg:gap-4 md:flex-row md:py-8'>
+            <div className='flex flex-col justify-center gap-7 flex-wrap rounded-2xl lg:gap-4 md:flex-row md:py-8 sm:mb-7'>
               {/* 반복되는 프로필 박스들을 map 메서드 활용하여 간결하게 처리 */}
                     {
                       playerProfile.map((stat, index) => (
