@@ -24,18 +24,18 @@ const FieldPlayer = () => {
     const playerTouches = [
       { label: 'Total Touches', value: stats.totalTouches },
       { label: 'Tackles Won/Lost', value: stats.tacklesWonLost },
-      { label: 'Clearances', value: stats.Cleareances },
-      { label: 'Interceptions', value: stats.Interceptions },
-      { label: 'Duels Won / Lost', value: stats.DuelsWonLost },
-      { label: 'Blocks', value: stats.Blocks },
+      { label: 'Clearances', value: stats.cleareances },
+      { label: 'Interceptions', value: stats.interceptions },
+      { label: 'Duels Won / Lost', value: stats.duelsWonLost },
+      { label: 'Blocks', value: stats.blocks },
     ];
     
     // 파울 데이터 
     const playerFouls = [
-      { label: 'Fouls Drawn', value: stats.FoulsDrawn },
-      { label: 'Fouls Committed', value: stats.FoulsCommitted },
-      { label: 'Yellow Card', value: 1 },
-      { label: 'Red Card', value: 1 },
+      { label: 'Fouls Drawn', value: stats.foulsDrawn },
+      { label: 'Fouls Committed', value: stats.foulsCommitted },
+      { label: 'Yellow Card', value: stats.yellowCard},
+      { label: 'Red Card', value: stats.redCard },
     ];
 
   return (
@@ -102,19 +102,21 @@ const FieldPlayer = () => {
             <div className='flex-1 h-56  bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
               
                 {/* 득점 데이터 */}
-                Total Goals: {stats.TotalGoals}
-                Goals Per Match: {stats.GoalsPerMatch}
-                Minutes Per Goal: {stats.MinutesPerGoal}
-              
-            </div>
+                Total Goals: {stats.totalGoals}
+                Goals Per Match: {stats.goalsPerMatch}
+                Minutes Per Goal: {stats.minutesPerGoal}
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
+                </div>
+                
+              </div>
+            {/* donut chart */}
             <div className='flex-1 h-56  bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-              
                 {/* 패스 데이터 */}
-                Total Passes: {stats.TotalPasses}
-                Key Passes: {stats.KeyPasses}
-                Successful Crosses: {stats.SuccessfulCrosses}
-                Assists: {stats.Assists}
-              
+                Total Passes: {stats.totalPasses}
+                Key Passes: {stats.keyPasses}
+                Successful Crosses: {stats.successfulCrosses}
+                Assists: {stats.assists}
             </div>
           </section>
     </main>

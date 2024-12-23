@@ -15,12 +15,18 @@ app.use(express.json());
 
 app.post('/crawl', async(req, res) => {
     // 브라우저 및 페이지 초기화
-    const browser = await puppeteer.launch({ headless: true }); // headless 모드
+    const browser = await puppeteer.launch({ headless: true }); 
     const page = await browser.newPage();
     const { playerData } = req.body; 
 
     // 크롤링을 위한 데이터 셋업
-    const createResponseData = (playerData, statValues = null, profileValues = null)=>{
+    const createResponseData = (playerData, 
+        statValues = null, 
+        profileValues = null, 
+        cardValues = null, 
+        shootValues = null,
+        // passValues = null
+    )=>{
         const isGoalkeeper = (playerData.role === 0);
 
         const defaultData = {
@@ -38,37 +44,47 @@ app.post('/crawl', async(req, res) => {
             subbedOnOff: 'x',
             totalTouches: 'x',
             tacklesWonLost: 'x',
-            Cleareances: 'x',
-            Interceptions: 'x',
-            DuelsWonLost: 'x',
-            Blocks: 'x',
+            cleareances: 'x',
+            interceptions: 'x',
+            duelsWonLost: 'x',
+            blocks: 'x',
         };
     
         const extraData = isGoalkeeper
         ? {
-            TotalSaves: 'x',
-            CleanSheets: 'x',
-            SavesMadeCatch: 'x',
-            SavesMadePunch: 'x',
-            Punches: 'x',
-            Catches: 'x',
+            totalSaves: 'x',
+            cleanSheets: 'x',
+            savesMadeCatch: 'x',
+            savesMadePunch: 'x',
+            punches: 'x',
+            catches: 'x',
         }
         : {
-            TotalGoals: 'x',
-            GoalsPerMatch: 'x',
-            MinutesPerGoal: 'x',
+            totalGoals: 'x',
+            goalsPerMatch: 'x',
+            minutesPerGoal: 'x',
+            goalsOutside: 'x',
+            goalsInside: 'x',
+            scoredWithHead: 'x',
+            scoredWithRight: 'x',
+            scoredWithLeft: 'x',
+            penalties: 'x',
+            freeKicks: 'x',
         };
 
         const commonData = {
-            TotalPasses: 'x',
-            KeyPasses: 'x',
-            SuccessfulCrosses: 'x',
-            Assists: 'x',
-            FoulsDrawn: 'x',
-            FoulsCommitted: 'x',
+            totalPasses: 'x',
+            keyPasses: 'x',
+            successfulCrosses: 'x',
+            assists: 'x',
+
+            foulsDrawn: 'x',
+            foulsCommitted: 'x',
+            yellowCard: 'x',
+            redCard: 'x',
         };
 
-        if (statValues && profileValues) {
+        if (statValues && profileValues && cardValues || shootValues) {
             Object.assign(defaultData, {
                 fullname: profileValues[0],
                 nationality: profileValues[1],
@@ -84,42 +100,53 @@ app.post('/crawl', async(req, res) => {
                 subbedOnOff: statValues[3],
                 totalTouches: statValues[4],
                 tacklesWonLost: statValues[5],
-                Cleareances: statValues[6],
-                Interceptions: statValues[7],
-                DuelsWonLost: statValues[8],
-                Blocks: statValues[9],
+                cleareances: statValues[6],
+                interceptions: statValues[7],
+                duelsWonLost: statValues[8],
+                blocks: statValues[9],
             });
     
             if (isGoalkeeper) {
                 Object.assign(extraData, {
-                    TotalSaves: statValues[10],
-                    CleanSheets: statValues[11],
-                    SavesMadeCatch: statValues[12],
-                    SavesMadePunch: statValues[13],
-                    Punches: statValues[14],
-                    Catches: statValues[15],
+                    totalSaves: statValues[10],
+                    cleanSheets: statValues[11],
+                    savesMadeCatch: statValues[12],
+                    savesMadePunch: statValues[13],
+                    punches: statValues[14],
+                    catches: statValues[15],
                 });
                 Object.assign(commonData, {
-                    TotalPasses: statValues[17],
-                    KeyPasses: statValues[18],
-                    SuccessfulCrosses: statValues[19],
-                    Assists: statValues[20],
-                    FoulsDrawn: statValues[21],
-                    FoulsCommitted: statValues[22],
+                    totalPasses: statValues[17],
+                    keyPasses: statValues[18],
+                    successfulCrosses: statValues[19],
+                    assists: statValues[20],
+                    foulsDrawn: statValues[21],
+                    foulsCommitted: statValues[22],
+                    yellowCard: cardValues[0],
+                    redCard: cardValues[1],
                 }) 
             } else {
                 Object.assign(extraData, {
-                    TotalGoals: statValues[11],
-                    GoalsPerMatch: statValues[12],
-                    MinutesPerGoal: statValues[13],
+                    totalGoals: statValues[11],
+                    goalsPerMatch: statValues[12],
+                    minutesPerGoal: statValues[13],
+                    goalsOutside: shootValues[0],
+                    goalsInside: shootValues[1],
+                    scoredWithHead: shootValues[2],
+                    scoredWithRight: shootValues[3],
+                    scoredWithLeft: shootValues[4],
+                    penalties: shootValues[5],
+                    freeKicks: shootValues[6],
                 });
                 Object.assign(commonData, {
-                    TotalPasses: statValues[15],
-                    KeyPasses: statValues[16],
-                    SuccessfulCrosses: statValues[17],
-                    Assists: statValues[18],
-                    FoulsDrawn: statValues[19],
-                    FoulsCommitted: statValues[20],
+                    totalPasses: statValues[15],
+                    keyPasses: statValues[16],
+                    successfulCrosses: statValues[17],
+                    assists: statValues[18],
+                    foulsDrawn: statValues[19],
+                    foulsCommitted: statValues[20],
+                    yellowCard: cardValues[0],
+                    redCard: cardValues[1],
                 }) 
             }
         }
@@ -170,6 +197,7 @@ app.post('/crawl', async(req, res) => {
             console.log('찾은 년도 : ' + text)
             if (text === (targetText)) {
                 await value.click(); // 텍스트가 일치하면 클릭
+                await page.waitForSelector('.player-stat__value', { timeout: 5000 });
                 console.log(`"${targetText}" 시즌을 클릭했습니다.`);
                 onSeason = 1;
                 break;
@@ -183,12 +211,56 @@ app.post('/crawl', async(req, res) => {
         await page.waitForSelector('.player-stat__value');
         const statValues = await page.$$eval('.player-stat__value', els => els.map(el => el.textContent.trim())); 
 
+        // 엘로카드, 레드카드 정보 추출해서 배열로 선언
+        await page.waitForSelector('.stats-fouls__yellow-cards__value');
+        const yellowCard = await page.$eval('.stats-fouls__yellow-cards__value', el => el.textContent); 
+        await page.waitForSelector('.stats-fouls__red-cards__value');
+        const redCard = await page.$eval('.stats-fouls__red-cards__value', el => el.textContent); 
+
+        const cardValues = [yellowCard, redCard]
+
+        // 득점, 슈팅 정보 추출해서 배열로 선언
+        await page.waitForSelector('.stats-goals__box-stats__values-out');
+        const goalsOutside = await page.$eval('.stats-goals__box-stats__values-out', el => el.textContent); 
+
+        await page.waitForSelector('.stats-goals__box-stats__values-in');
+        const goalsInside = await page.$eval('.stats-goals__box-stats__values-in', el => el.textContent);
+
+        await page.waitForSelector('.stats-scored-with__head__value');
+        const scoredWithHead = await page.$eval('.stats-scored-with__head__value', el => el.textContent); 
+
+        await page.waitForSelector('.stats-scored-with__right-foot__value');
+        const scoredWithRight = await page.$eval('.stats-scored-with__right-foot__value', el => el.textContent); 
+
+        await page.waitForSelector('.stats-scored-with__left-foot__value');
+        const scoredWithLeft = await page.$eval('.stats-scored-with__left-foot__value', el => el.textContent); 
+
+        await page.waitForSelector('.stats-scored-with__penalty__value');
+        const penalties = await page.$eval('.stats-scored-with__penalty__value', el => el.textContent);
+
+        await page.waitForSelector('.stats-scored-with__free-kick__value');
+        const freeKicks = await page.$eval('.stats-scored-with__free-kick__value', el => el.textContent); 
+
+        const shootValues = [goalsOutside, goalsInside, scoredWithHead, scoredWithRight, scoredWithLeft, penalties, freeKicks]
+
+        // 패스 정보 추출해서 배열로 선언
+        // const shortPass = await page.$$eval('.stats-pass-completion__value', els => els.map(el => el.textContent.trim())); 
+        
+        // const passValues = []        
+    
         console.log(statValues)
         console.log(profileValues)
-        console.log(playerData.role)
+        console.log(cardValues)
+        console.log(shootValues)
 
         // 크롤링한 데이터를 반환
-        res.json(createResponseData(playerData, onSeason ? statValues : null, onSeason ? profileValues : null));
+        res.json(createResponseData(playerData, 
+            statValues.length > 0 ? statValues : null,
+            profileValues.length > 0 ? profileValues : null,
+            cardValues.length > 0 ? cardValues : null,
+            shootValues.length > 0 ? shootValues : null
+            // onSeason ? passValues : null
+        ));
     } catch (error) {
         // 크롤링이 되지 않는 경우 'x' 데이터 제공
         try {
@@ -197,7 +269,9 @@ app.post('/crawl', async(req, res) => {
             console.error('이것도 안 됨?')
         }
     } finally {
-        await browser.close();
+        if (browser) {
+            await browser.close();
+        }
     }   
 })
 
