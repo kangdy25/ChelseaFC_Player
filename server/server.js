@@ -25,7 +25,7 @@ app.post('/crawl', async(req, res) => {
         profileValues = null, 
         cardValues = null, 
         shootValues = null,
-        // passValues = null
+        passValues = null
     )=>{
         const isGoalkeeper = (playerData.role === 0);
 
@@ -77,6 +77,9 @@ app.post('/crawl', async(req, res) => {
             keyPasses: 'x',
             successfulCrosses: 'x',
             assists: 'x',
+            shortPass: 'x',
+            longPass: 'x',
+            passSuccess: 'x',
 
             foulsDrawn: 'x',
             foulsCommitted: 'x',
@@ -84,7 +87,7 @@ app.post('/crawl', async(req, res) => {
             redCard: 'x',
         };
 
-        if (statValues && profileValues && cardValues || shootValues) {
+        if (statValues && profileValues && cardValues && shootValues && passValues) {
             Object.assign(defaultData, {
                 fullname: profileValues[0],
                 nationality: profileValues[1],
@@ -120,6 +123,10 @@ app.post('/crawl', async(req, res) => {
                     keyPasses: statValues[18],
                     successfulCrosses: statValues[19],
                     assists: statValues[20],
+                    shortPass: passValues[0],
+                    longPass: passValues[1],
+                    passSuccess: passValues[2],
+
                     foulsDrawn: statValues[21],
                     foulsCommitted: statValues[22],
                     yellowCard: cardValues[0],
@@ -143,6 +150,10 @@ app.post('/crawl', async(req, res) => {
                     keyPasses: statValues[16],
                     successfulCrosses: statValues[17],
                     assists: statValues[18],
+                    shortPass: passValues[0],
+                    longPass: passValues[1],
+                    passSuccess: passValues[2],
+
                     foulsDrawn: statValues[19],
                     foulsCommitted: statValues[20],
                     yellowCard: cardValues[0],
@@ -229,12 +240,14 @@ app.post('/crawl', async(req, res) => {
         await page.waitForSelector('.stats-scored-with__head__value');
         const scoredWithHead = await page.$eval('.stats-scored-with__head__value', el => el.textContent); 
 
+        // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
         await page.waitForSelector('.stats-scored-with__right-foot__value');
-        const scoredWithRight = await page.$eval('.stats-scored-with__right-foot__value', el => el.textContent); 
+        const scoredWithLeft = await page.$eval('.stats-scored-with__right-foot__value', el => el.textContent); 
 
+        // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
         await page.waitForSelector('.stats-scored-with__left-foot__value');
-        const scoredWithLeft = await page.$eval('.stats-scored-with__left-foot__value', el => el.textContent); 
-
+        const scoredWithRight = await page.$eval('.stats-scored-with__left-foot__value', el => el.textContent); 
+        
         await page.waitForSelector('.stats-scored-with__penalty__value');
         const penalties = await page.$eval('.stats-scored-with__penalty__value', el => el.textContent);
 
@@ -244,22 +257,27 @@ app.post('/crawl', async(req, res) => {
         const shootValues = [goalsOutside, goalsInside, scoredWithHead, scoredWithRight, scoredWithLeft, penalties, freeKicks]
 
         // 패스 정보 추출해서 배열로 선언
-        // const shortPass = await page.$$eval('.stats-pass-completion__value', els => els.map(el => el.textContent.trim())); 
+        await page.waitForSelector('.stats-pass-completion__value');
+        const passCompletion = await page.$$eval('.stats-pass-completion__value', els => els.map(el => el.textContent.trim())); 
         
-        // const passValues = []        
+        await page.waitForSelector('.stats-pass-success__player-rank__percentage-value');
+        const passSuccess = await page.$eval('.stats-pass-success__player-rank__percentage-value', el => el.textContent); 
+        
+        const passValues = [...passCompletion, passSuccess]        
     
         console.log(statValues)
         console.log(profileValues)
         console.log(cardValues)
         console.log(shootValues)
+        console.log(passValues)
 
         // 크롤링한 데이터를 반환
         res.json(createResponseData(playerData, 
             statValues.length > 0 ? statValues : null,
             profileValues.length > 0 ? profileValues : null,
             cardValues.length > 0 ? cardValues : null,
-            shootValues.length > 0 ? shootValues : null
-            // onSeason ? passValues : null
+            shootValues.length > 0 ? shootValues : null,
+            passValues.length > 0 ? passValues : null,
         ));
     } catch (error) {
         // 크롤링이 되지 않는 경우 'x' 데이터 제공
