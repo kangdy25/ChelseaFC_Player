@@ -38,6 +38,35 @@ const FieldPlayer = () => {
       { label: 'Red Card', value: stats.redCard },
     ];
 
+    // 득점 데이터
+    const playerGoal = [
+      { label: 'Total Goals', value: stats.totalGoals},
+      { label: 'Goals Per Match', value: stats.goalsPerMatch},
+      { label: 'Minutes Per Goal', value: stats.minutesPerGoal},
+      
+      { label: 'Goals Inside', value: stats.goalsInside},
+      { label: 'Goals Outside', value: stats.goalsOutside},
+      
+      { label: 'Scored With Head', value: stats.scoredWithHead},
+      { label: 'Scored With Right', value: stats.scoredWithRight},
+      { label: 'Scored With Left', value: stats.scoredWithLeft},
+      
+      { label: 'Penalties', value: stats.penalties},
+      { label: 'Free Kicks', value: stats.freeKicks},
+    ];
+
+    // 패스 데이터
+    const playerPass = [
+      { label: 'Total Passes', value: stats.totalPasses},
+      { label: 'Key Passes', value: stats.keyPasses},
+      { label: 'Successful Crosses', value: stats.successfulCrosses},
+      { label: 'Assists', value: stats.assists},
+
+      { label: 'Short Passes', value: stats.shortPass},
+      { label: 'Long Passes', value: stats.longPass},
+      { label: 'Pass Success Rate', value: stats.passSuccess},
+    ];
+
   return (
     <main className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
           {/* 선수 프로필 */}
@@ -99,25 +128,53 @@ const FieldPlayer = () => {
             }
           </section>
           <section className='flex h-full flex-wrap sm:flex-col'>
-            <div className='flex-1 h-56  bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-              
-                {/* 득점 데이터 */}
-                Total Goals: {stats.totalGoals}
-                Goals Per Match: {stats.goalsPerMatch}
-                Minutes Per Goal: {stats.minutesPerGoal}
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
-                </div>
-                
-              </div>
-            {/* donut chart */}
-            <div className='flex-1 h-56  bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                {/* 패스 데이터 */}
-                Total Passes: {stats.totalPasses}
-                Key Passes: {stats.keyPasses}
-                Successful Crosses: {stats.successfulCrosses}
-                Assists: {stats.assists}
-            </div>
+            {
+              [playerGoal].map((content, index)=>{
+                return (
+                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Goals</h5>
+                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                      {
+                      content.map((stat, i)=>{
+    
+                          return(
+                            <div key={i} className='font-serif mb-5'>
+                              <p className={`text-md font-semibold`}>{stat.label}</p>
+                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                            </div>
+                          )
+                        })
+                      }
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            }
+            {
+              [playerPass].map((content, index)=>{
+                return (
+                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Pass</h5>
+                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                      {
+                      content.map((stat, i)=>{
+    
+                          return(
+                            <div key={i} className='font-serif mb-5'>
+                              <p className={`text-md font-semibold`}>{stat.label}</p>
+                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
+                  </div>
+                )
+              })
+            }
           </section>
     </main>
   )
