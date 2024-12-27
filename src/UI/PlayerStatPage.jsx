@@ -1,4 +1,4 @@
-import {React, useEffect} from 'react'
+import {React, useCallback, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setStats, resetStats } from "../redux/slice/statsSlice"
@@ -23,19 +23,8 @@ const PlayerStatPage = () => {
             (player)=> player.url_name === name
     )
 
-    // 페이지 접속 시 현역 첼시 선수 데이터가 있으면 크롤링 시작
-    useEffect(() => {
-        if (playerData && playerData.isChelsea) {
-            fetchStats(playerData);
-        }
-    }, [playerData]);
-
-    // 현재 첼시 소속이 아닌 선수는 404 에러 처리
-    if (!playerData || !playerData.isChelsea) {
-        return <NotFoundPage />;
-    }
-
-    const fetchStats = async (playerData) => {
+    // 크롤링 요청 코드
+    const fetchStats = useCallback(async (playerData) => {
         console.log(playerData)
         try {
             const response = await fetch('/crawl', {
@@ -61,7 +50,19 @@ const PlayerStatPage = () => {
         } catch (error) {
             console.error('Error fetching stats:', error);
         }
-    };
+    }, [dispatch]);
+
+    // 페이지 접속 시 현역 첼시 선수 데이터가 있으면 크롤링 시작
+    useEffect(() => {
+        if (playerData && playerData.isChelsea) {
+            fetchStats(playerData);
+        }
+    }, [playerData, fetchStats]);
+
+    // 현재 첼시 소속이 아닌 선수는 404 에러 처리
+    if (!playerData || !playerData.isChelsea) {
+        return <NotFoundPage />;
+    }
 
     return (
         <main className='flex'>    

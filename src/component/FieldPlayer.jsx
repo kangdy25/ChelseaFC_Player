@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import Chart from '../UI/Chart.jsx'
 
 const FieldPlayer = () => {
     const stats = useSelector((state) => state.stats)
@@ -48,8 +49,8 @@ const FieldPlayer = () => {
       { label: 'Goals Outside', value: stats.goalsOutside},
       
       { label: 'Scored With Head', value: stats.scoredWithHead},
-      { label: 'Scored With Right', value: stats.scoredWithRight},
       { label: 'Scored With Left', value: stats.scoredWithLeft},
+      { label: 'Scored With Right', value: stats.scoredWithRight},
       
       { label: 'Penalties', value: stats.penalties},
       { label: 'Free Kicks', value: stats.freeKicks},
@@ -66,7 +67,7 @@ const FieldPlayer = () => {
       { label: 'Long Passes', value: stats.longPass},
       { label: 'Pass Success Rate', value: stats.passSuccess},
     ];
-
+    
   return (
     <div className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
           {/* 선수 프로필 */}
@@ -122,6 +123,7 @@ const FieldPlayer = () => {
                       })
                     }
                   </div>
+                  
                 </div>
                 )
               })
@@ -147,6 +149,10 @@ const FieldPlayer = () => {
                       }
                       <div className="w-full bg-gray-200 rounded-full h-2.5">
                         <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
+                      </div>
+                      {/* <!-- Radial Chart --> */}
+                      <div className='mt-4 flex justify-center flex-wrap w-full '>
+                        <Chart width={'450px'} height={'450px'}/>
                       </div>
                     </div>
                   </div>
