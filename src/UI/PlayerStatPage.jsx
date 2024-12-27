@@ -11,7 +11,6 @@ const PlayerStatPage = () => {
     const seasonInfo = useSelector((state) => state.seasonInfo)
     const stats = useSelector((state) => state.stats)
     const dispatch = useDispatch();
-
     const {season, name} = useParams();
 
     useEffect(() => {
@@ -24,11 +23,18 @@ const PlayerStatPage = () => {
             (player)=> player.url_name === name
     )
 
+    // 페이지 접속 시 현역 첼시 선수 데이터가 있으면 크롤링 시작
+    useEffect(() => {
+        if (playerData && playerData.isChelsea) {
+            fetchStats(playerData);
+        }
+    }, [playerData]);
+
     // 현재 첼시 소속이 아닌 선수는 404 에러 처리
-    if (!playerData.isChelsea) {
-        return <NotFoundPage/>;
+    if (!playerData || !playerData.isChelsea) {
+        return <NotFoundPage />;
     }
-    
+
     const fetchStats = async (playerData) => {
         console.log(playerData)
         try {
@@ -56,12 +62,11 @@ const PlayerStatPage = () => {
             console.error('Error fetching stats:', error);
         }
     };
+
     return (
-        <div className="flex flex-col  justify-center items-center">
-            <h1 className="text-7xl">Player Stats</h1>
-                <button className="mt-5 bg-red-400 cursor-pointer border border-slate-700 p-2 rounded-lg" onClick={() => fetchStats(playerData)}>Fetch Player Stats</button>
-                {!stats ? <Loading/> : (stats.role !== 0 ? <FieldPlayer /> : <Goalkeeper />) }
-        </div>
+        <main className='flex'>    
+            {!stats ? <Loading/> : (stats.role !== 0 ? <FieldPlayer /> : <Goalkeeper />) }
+        </main>
     )
 }
 
