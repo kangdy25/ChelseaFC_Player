@@ -14,9 +14,8 @@ const Chart = (props)=>{
             const { width } = chart;
             const { height } = chart;
             const ctx = chart.ctx;
-            
-    
             ctx.restore();
+
             const fontSize = (height / 100).toFixed(2); // 크기 비율에 맞게 글자 크기 조정
             ctx.font = `bold ${fontSize}em sans-serif`;
             ctx.fillStyle = "white"; 
@@ -44,20 +43,14 @@ const Chart = (props)=>{
     };
 
     const options = {
-        cutout: '80%', // 도넛 차트의 두께 조절 (기본값: 50%)
+        cutout: '85%', // 도넛 차트의 두께 조절 (기본값: 50%)
         plugins: {
-            legend: {
-                display: false,
-            }
+            legend: { display: false }
         }
     };
 
     return (
-        <Doughnut 
-            data={data} 
-            options={options} 
-            plugins={[textCenter]} 
-        />
+        <Doughnut data={data} options={options} plugins={[textCenter]} />
     );
 }
 

@@ -25,7 +25,6 @@ const PlayerStatPage = () => {
 
     // 크롤링 요청 코드
     const fetchStats = useCallback(async (playerData) => {
-        console.log(playerData)
         try {
             const response = await fetch('/crawl', {
                 method: 'POST',

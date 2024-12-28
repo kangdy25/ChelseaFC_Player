@@ -9,7 +9,7 @@ module.exports = {
           'cyan-gradient' : 'linear-gradient(45deg, rgb(103, 137, 250), rgb(47, 50, 234))',
           'background-gradient' : 'radial-gradient(ellipse at bottom, #262d6a, #3253d6, #07002e)',
           'card-gradient' : 'linear-gradient(45deg, #0e0542, #172286)',
-          'stat-gradient' : 'radial-gradient(at 47% 33%, hsl(180.00, 100%, 11%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(218.12, 100%, 36%) 0, transparent 55%)',
+          'stat-gradient' : 'radial-gradient(at 47% 33%, hsl(216 98% 26%) 0, transparent 49%), radial-gradient(at 82% 65%, hsl(218.12, 100%, 36%) 0, transparent 25%)',
           'chart-gradient': 'conic-gradient(#3F8BC9 0% 72%, #F2F2F2 72% 100%)'
         },
         colors : {
