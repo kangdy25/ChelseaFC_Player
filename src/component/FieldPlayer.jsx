@@ -40,18 +40,16 @@ const FieldPlayer = () => {
     ];
 
     // 득점 데이터
-    const playerGoal = [
+    const playerGoal1 = [
       { label: 'Total Goals', value: stats.totalGoals},
       { label: 'Goals Per Match', value: stats.goalsPerMatch},
       { label: 'Minutes Per Goal', value: stats.minutesPerGoal},
-      
-      { label: 'Goals Inside', value: stats.goalsInside},
-      { label: 'Goals Outside', value: stats.goalsOutside},
-      
+    ];
+
+    const playerGoal2 = [
       { label: 'Scored With Head', value: stats.scoredWithHead},
       { label: 'Scored With Left', value: stats.scoredWithLeft},
       { label: 'Scored With Right', value: stats.scoredWithRight},
-      
       { label: 'Penalties', value: stats.penalties},
       { label: 'Free Kicks', value: stats.freeKicks},
     ];
@@ -65,7 +63,6 @@ const FieldPlayer = () => {
 
       { label: 'Short Passes', value: stats.shortPass},
       { label: 'Long Passes', value: stats.longPass},
-      { label: 'Pass Success Rate', value: stats.passSuccess},
     ];
     
   return (
@@ -85,17 +82,16 @@ const FieldPlayer = () => {
             </div>
             
             <div className='flex flex-col justify-center gap-7 flex-wrap rounded-2xl lg:gap-4 md:flex-row md:py-8 sm:mb-7'>
-              {/* 반복되는 프로필 박스들을 map 메서드 활용하여 간결하게 처리 */}
-                    {
-                      playerProfile.map((stat, index) => (
-                        <div key={index} className='w-64 mx-1 lg:w-48'>
-                          <p className='text-slate-400 font-semibold text-sm'>{stat.label}</p>
-                          <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md h-16 font-serif font-bold p-2 mt-2.5'>
-                            {stat.value}
-                          </div>
-                        </div>
-                      ))
-                    }
+              {
+                playerProfile.map((stat, index) => (
+                  <div key={index} className='w-64 mx-1 lg:w-48'>
+                    <p className='text-slate-400 font-semibold text-sm'>{stat.label}</p>
+                    <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md h-16 font-serif font-bold p-2 mt-2.5'>
+                      {stat.value}
+                    </div>
+                  </div>
+                ))
+              }
             </div>
           </section>
           <section className='flex h-full flex-wrap sm:flex-col'>
@@ -104,7 +100,7 @@ const FieldPlayer = () => {
                 const data = ['Appearances', 'Touches', 'Fouls']
                 return (
                   <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                  <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>{data[index]}</h5>
+                  <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>{data[index]}</h5>
                   <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
                     {
                       content.map((stat, i)=>{
@@ -123,64 +119,74 @@ const FieldPlayer = () => {
                       })
                     }
                   </div>
-                  
                 </div>
                 )
               })
             }
           </section>
-          <section className='flex h-full flex-wrap sm:flex-col'>
-            {
-              [playerGoal].map((content, index)=>{
-                return (
-                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Goals</h5>
-                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
-                      {
-                      content.map((stat, i)=>{
-    
-                          return(
-                            <div key={i} className='font-serif mb-5'>
-                              <p className={`text-md font-semibold`}>{stat.label}</p>
-                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
-                            </div>
-                          )
-                        })
-                      }
-                      <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
+          <section className='flex h-full flex-wrap md:flex-col sm:flex-col'>
+            <div className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+              <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Goals</h5>
+              <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                {
+                playerGoal1.map((stat, i)=>{
+                  return(
+                    <div key={i} className='font-serif mb-5'>
+                        <p className={`text-md font-semibold`}>{stat.label}</p>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
                       </div>
-                      {/* <!-- Radial Chart --> */}
-                      <div className='mt-4 flex justify-center flex-wrap w-full '>
-                        <Chart width={'450px'} height={'450px'}/>
-                      </div>
+                    )
+                  })
+                }
+                </div>
+                  <div className='flex flex-row justify-around md:justify-center sm:flex-col sm:gap-7'>
+                    <div className='flex flex-col items-center justify-center w-full'>
+                        <p className='font-serif text-xl font-semibold mb-5'>Goals Inside</p>
+                        <div className='w-[250px] h-[250px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                          <Chart value={stats.goalsInside}/>
+                        </div>
+                    </div>
+                    <div className='flex flex-col items-center justify-center w-full'>
+                        <p className='font-serif text-xl font-semibold mb-5'>Goals Outside</p>
+                        <div className='w-[250px] h-[250px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                          <Chart value={stats.goalsOutside}/>
+                        </div>
                     </div>
                   </div>
-                )
-              })
-            }
-            {
-              [playerPass].map((content, index)=>{
-                return (
-                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Pass</h5>
-                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
-                      {
-                      content.map((stat, i)=>{
-    
-                          return(
-                            <div key={i} className='font-serif mb-5'>
-                              <p className={`text-md font-semibold`}>{stat.label}</p>
-                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
-                            </div>
-                          )
-                        })
-                      }
+                <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mt-10 my-5'>
+                {
+                  playerGoal2.map((stat, i)=>{
+                    return(
+                      <div key={i} className='font-serif mb-5'>
+                      <p className={`text-md font-semibold`}>{stat.label}</p>
+                      <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                      </div>
+                    )
+                  })
+                }
+                </div>
+            </div>
+            <div className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+              <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Pass</h5>
+              <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                {
+                playerPass.map((stat, i)=>{
+                    return(
+                      <div key={i} className='font-serif mb-5'>
+                        <p className='text-md font-semibold'>{stat.label}</p>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                        </div>
+                      )
+                  })
+                }
+              </div>
+                <div className='flex flex-col items-center justify-center w-full mb-7'>
+                    <p className='font-serif text-xl font-semibold mb-5'>Pass Success Rate</p>
+                    <div className='w-[300px] h-[300px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                      <Chart value={stats.passSuccess}/>
                     </div>
-                  </div>
-                )
-              })
-            }
+                </div>
+            </div>
           </section>
     </div>
   )
