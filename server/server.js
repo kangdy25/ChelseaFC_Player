@@ -25,142 +25,83 @@ app.post('/crawl', async(req, res) => {
         profileValues = null, 
         cardValues = null, 
         shootValues = null,
-        passValues = null
+        saveValues = null,
+        passValues = null,
     )=>{
         const isGoalkeeper = (playerData.role === 0);
-
+        // 골키퍼와 필드플레이어의 공통된 데이터
         const defaultData = {
-            fullname: 'x',
-            nationality: 'x',
-            placeOfBirth: 'x',
-            position: 'x',
-            dob: 'x',
-            height: 'x',
-            debut: 'x',
+            fullname: profileValues ? profileValues[0] : 'x',
+            nationality: profileValues ? profileValues[1] : 'x',
+            placeOfBirth: profileValues ? profileValues[2] : 'x',
+            position: profileValues ? profileValues[3] : 'x',
+            dob: profileValues ? profileValues[4] : 'x',
+            height: profileValues ? profileValues[5] : 'x',
+            debut: profileValues ? profileValues[6] : 'x',
 
-            appearances: 'x',
-            minutesPlayed: 'x',
-            starts: 'x',
-            subbedOnOff: 'x',
-            totalTouches: 'x',
-            tacklesWonLost: 'x',
-            cleareances: 'x',
-            interceptions: 'x',
-            duelsWonLost: 'x',
-            blocks: 'x',
+            appearances: statValues ? statValues[0] : 'x',
+            minutesPlayed: statValues ? statValues[1] : 'x',
+            starts: statValues ? statValues[2] : 'x',
+            subbedOnOff: statValues ? statValues[3] : 'x',
+            totalTouches: statValues ? statValues[4] : 'x',
+            tacklesWonLost: statValues ? statValues[5] : 'x',
+            cleareances: statValues ? statValues[6] : 'x',
+            interceptions: statValues ? statValues[7] : 'x',
+            duelsWonLost: statValues ? statValues[8] : 'x',
+            blocks: statValues ? statValues[9] : 'x',
+
+            shortPass: statValues ? passValues[0] : 'x',
+            longPass: statValues ? passValues[1] : 'x',
+            passSuccess: statValues ? passValues[2] : 'x',
+            
+            yellowCard: cardValues ? cardValues[0] : 'x',
+            redCard: cardValues ? cardValues[1] : 'x',
+        };
+
+        // 골키퍼와 필드플레이어의 서로 같지만 크롤링 시 인덱스가 다른 데이터
+        const commonData = isGoalkeeper ? {
+            totalPasses: statValues ? statValues[17] : 'x',
+            keyPasses: statValues ? statValues[18] : 'x',
+            successfulCrosses: statValues ? statValues[19] : 'x',
+            assists: statValues ? statValues[20] : 'x',
+
+            foulsDrawn: statValues ? statValues[21] : 'x',
+            foulsCommitted: statValues ? statValues[22] : 'x',
+        } : {
+            totalPasses: statValues ? statValues[15] : 'x',
+            keyPasses: statValues ? statValues[16] : 'x',
+            successfulCrosses: statValues ? statValues[17] : 'x',
+            assists: statValues ? statValues[18] : 'x',
+
+            foulsDrawn: statValues ? statValues[19] : 'x',
+            foulsCommitted: statValues ? statValues[20] : 'x',
         };
     
+        // 골키퍼와 필드플레이어의 서로 다른 데이터
         const extraData = isGoalkeeper
         ? {
-            totalSaves: 'x',
-            cleanSheets: 'x',
-            savesMadeCatch: 'x',
-            savesMadePunch: 'x',
-            punches: 'x',
-            catches: 'x',
+            totalSaves: statValues ? statValues[10] : 'x',
+            cleanSheets: statValues ? statValues[11] : 'x',
+            savesMadeCatch: statValues ? statValues[12] : 'x',
+            savesMadePunch: statValues ? statValues[13] : 'x',
+            punches: statValues ? statValues[14] : 'x',
+            catches: statValues ? statValues[15] : 'x',
+            savesInside: saveValues ? saveValues[0] : 'x',
+            savesOutside: saveValues ? saveValues[1] : 'x',
         }
         : {
-            totalGoals: 'x',
-            goalsPerMatch: 'x',
-            minutesPerGoal: 'x',
-            goalsOutside: 'x',
-            goalsInside: 'x',
-            scoredWithHead: 'x',
-            scoredWithRight: 'x',
-            scoredWithLeft: 'x',
-            penalties: 'x',
-            freeKicks: 'x',
+            totalGoals: statValues ? statValues[11] : 'x',
+            goalsPerMatch: statValues ? statValues[12] : 'x',
+            minutesPerGoal: statValues ? statValues[13] : 'x',
+            goalsOutside: shootValues ? shootValues[0] : 'x',
+            goalsInside: shootValues ? shootValues[1] : 'x',
+            scoredWithHead: shootValues ? shootValues[2] : 'x',
+            scoredWithRight: shootValues ? shootValues[3] : 'x',
+            scoredWithLeft: shootValues ? shootValues[4] : 'x',
+            penalties: shootValues ? shootValues[5] : 'x',
+            freeKicks: shootValues ? shootValues[6] : 'x',
         };
 
-        const commonData = {
-            totalPasses: 'x',
-            keyPasses: 'x',
-            successfulCrosses: 'x',
-            assists: 'x',
-            shortPass: 'x',
-            longPass: 'x',
-            passSuccess: 'x',
-
-            foulsDrawn: 'x',
-            foulsCommitted: 'x',
-            yellowCard: 'x',
-            redCard: 'x',
-        };
-
-        if (statValues && profileValues && cardValues && shootValues && passValues) {
-            Object.assign(defaultData, {
-                fullname: profileValues[0],
-                nationality: profileValues[1],
-                placeOfBirth: profileValues[2],
-                position: profileValues[3],
-                dob: profileValues[4],
-                height: profileValues[5],
-                debut: profileValues[6],
-
-                appearances: statValues[0],
-                minutesPlayed: statValues[1],
-                starts: statValues[2],
-                subbedOnOff: statValues[3],
-                totalTouches: statValues[4],
-                tacklesWonLost: statValues[5],
-                cleareances: statValues[6],
-                interceptions: statValues[7],
-                duelsWonLost: statValues[8],
-                blocks: statValues[9],
-            });
-    
-            if (isGoalkeeper) {
-                Object.assign(extraData, {
-                    totalSaves: statValues[10],
-                    cleanSheets: statValues[11],
-                    savesMadeCatch: statValues[12],
-                    savesMadePunch: statValues[13],
-                    punches: statValues[14],
-                    catches: statValues[15],
-                });
-                Object.assign(commonData, {
-                    totalPasses: statValues[17],
-                    keyPasses: statValues[18],
-                    successfulCrosses: statValues[19],
-                    assists: statValues[20],
-                    shortPass: passValues[0],
-                    longPass: passValues[1],
-                    passSuccess: passValues[2],
-
-                    foulsDrawn: statValues[21],
-                    foulsCommitted: statValues[22],
-                    yellowCard: cardValues[0],
-                    redCard: cardValues[1],
-                }) 
-            } else {
-                Object.assign(extraData, {
-                    totalGoals: statValues[11],
-                    goalsPerMatch: statValues[12],
-                    minutesPerGoal: statValues[13],
-                    goalsOutside: shootValues[0],
-                    goalsInside: shootValues[1],
-                    scoredWithHead: shootValues[2],
-                    scoredWithRight: shootValues[3],
-                    scoredWithLeft: shootValues[4],
-                    penalties: shootValues[5],
-                    freeKicks: shootValues[6],
-                });
-                Object.assign(commonData, {
-                    totalPasses: statValues[15],
-                    keyPasses: statValues[16],
-                    successfulCrosses: statValues[17],
-                    assists: statValues[18],
-                    shortPass: passValues[0],
-                    longPass: passValues[1],
-                    passSuccess: passValues[2],
-
-                    foulsDrawn: statValues[19],
-                    foulsCommitted: statValues[20],
-                    yellowCard: cardValues[0],
-                    redCard: cardValues[1],
-                }) 
-            }
-        }
         return {
             season: playerData.season,
             first_name: playerData.first_name,
@@ -228,33 +169,48 @@ app.post('/crawl', async(req, res) => {
         await page.waitForSelector('.stats-fouls__red-cards__value');
         const redCard = await page.$eval('.stats-fouls__red-cards__value', el => el.textContent); 
 
-        const cardValues = [yellowCard, redCard]
+        const cardValues = [yellowCard, redCard];
 
         // 득점, 슈팅 정보 추출해서 배열로 선언
-        await page.waitForSelector('.stats-goals__box-stats__values-out');
-        const goalsOutside = await page.$eval('.stats-goals__box-stats__values-out', el => el.textContent); 
+        let shootValues = null;
+        if (playerData.role !== 0) {
+            await page.waitForSelector('.stats-goals__box-stats__values-out');
+            const goalsOutside = await page.$eval('.stats-goals__box-stats__values-out', el => el.textContent); 
 
-        await page.waitForSelector('.stats-goals__box-stats__values-in');
-        const goalsInside = await page.$eval('.stats-goals__box-stats__values-in', el => el.textContent);
+            await page.waitForSelector('.stats-goals__box-stats__values-in');
+            const goalsInside = await page.$eval('.stats-goals__box-stats__values-in', el => el.textContent);
 
-        await page.waitForSelector('.stats-scored-with__head__value');
-        const scoredWithHead = await page.$eval('.stats-scored-with__head__value', el => el.textContent); 
+            await page.waitForSelector('.stats-scored-with__head__value');
+            const scoredWithHead = await page.$eval('.stats-scored-with__head__value', el => el.textContent); 
 
-        // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
-        await page.waitForSelector('.stats-scored-with__right-foot__value');
-        const scoredWithLeft = await page.$eval('.stats-scored-with__right-foot__value', el => el.textContent); 
+            // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
+            await page.waitForSelector('.stats-scored-with__right-foot__value');
+            const scoredWithLeft = await page.$eval('.stats-scored-with__right-foot__value', el => el.textContent); 
 
-        // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
-        await page.waitForSelector('.stats-scored-with__left-foot__value');
-        const scoredWithRight = await page.$eval('.stats-scored-with__left-foot__value', el => el.textContent); 
-        
-        await page.waitForSelector('.stats-scored-with__penalty__value');
-        const penalties = await page.$eval('.stats-scored-with__penalty__value', el => el.textContent);
+            // chelsea.com 공식 홈페이지의 셀렉터 표시 오류 (왼발-오른발)
+            await page.waitForSelector('.stats-scored-with__left-foot__value');
+            const scoredWithRight = await page.$eval('.stats-scored-with__left-foot__value', el => el.textContent); 
+            
+            await page.waitForSelector('.stats-scored-with__penalty__value');
+            const penalties = await page.$eval('.stats-scored-with__penalty__value', el => el.textContent);
 
-        await page.waitForSelector('.stats-scored-with__free-kick__value');
-        const freeKicks = await page.$eval('.stats-scored-with__free-kick__value', el => el.textContent); 
+            await page.waitForSelector('.stats-scored-with__free-kick__value');
+            const freeKicks = await page.$eval('.stats-scored-with__free-kick__value', el => el.textContent); 
 
-        const shootValues = [goalsOutside, goalsInside, scoredWithHead, scoredWithRight, scoredWithLeft, penalties, freeKicks]
+            shootValues = [goalsOutside, goalsInside, scoredWithHead, scoredWithRight, scoredWithLeft, penalties, freeKicks]
+        }
+
+        // 선방 정보 추출해서 배열로 선언
+        let saveValues = null;
+        if (playerData.role === 0) {
+            await page.waitForSelector('.stats-goalkeeping__box-stats__values-out');
+            const savesOutside = await page.$eval('.stats-goalkeeping__box-stats__values-out', el => el.textContent); 
+
+            await page.waitForSelector('.stats-goalkeeping__box-stats__values-in');
+            const savesInside = await page.$eval('.stats-goalkeeping__box-stats__values-in', el => el.textContent); 
+            
+            saveValues = [savesOutside, savesInside]
+        }
 
         // 패스 정보 추출해서 배열로 선언
         await page.waitForSelector('.stats-pass-completion__value');
@@ -269,6 +225,7 @@ app.post('/crawl', async(req, res) => {
         console.log(profileValues)
         console.log(cardValues)
         console.log(shootValues)
+        console.log(saveValues)
         console.log(passValues)
 
         // 크롤링한 데이터를 반환
@@ -276,7 +233,8 @@ app.post('/crawl', async(req, res) => {
             statValues.length > 0 ? statValues : null,
             profileValues.length > 0 ? profileValues : null,
             cardValues.length > 0 ? cardValues : null,
-            shootValues.length > 0 ? shootValues : null,
+            playerData.role !== 0 && shootValues.length > 0 ? shootValues : null,
+            playerData.role === 0 && saveValues.length > 0 ? saveValues : null,
             passValues.length > 0 ? passValues : null,
         ));
     } catch (error) {

@@ -1,77 +1,26 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import Chart from '../UI/Chart.jsx'
+import { 
+  getPlayerProfile, getPlayerAppearances, getPlayerTouches, 
+  getPlayerFouls, getPlayerGoal1, getPlayerGoal2, getPlayerPasses 
+} from '../Database/playerStats.js';
 
 const FieldPlayer = () => {
     const stats = useSelector((state) => state.stats)
-    const playerProfile = [
-      { label: 'Nationality', value: stats.nationality },
-      { label: 'Place of Birth', value: stats.placeOfBirth },
-      { label: 'Position', value: stats.position },
-      { label: 'Date of Birth', value: stats.dob },
-      { label: 'Height', value: stats.height },
-      { label: 'Debut', value: stats.debut },
-    ];
     
-    // 출전 데이터 
-    const playerAppearances = [
-      { label: 'Team Appearances', value: stats.appearances },
-      { label: 'Minutes Played', value: stats.minutesPlayed },
-      { label: 'Starts', value: stats.starts },
-      { label: 'Subbed On/Off', value: stats.subbedOnOff },
-    ];
-
-    // 터치 데이터
-    const playerTouches = [
-      { label: 'Total Touches', value: stats.totalTouches },
-      { label: 'Tackles Won/Lost', value: stats.tacklesWonLost },
-      { label: 'Clearances', value: stats.cleareances },
-      { label: 'Interceptions', value: stats.interceptions },
-      { label: 'Duels Won / Lost', value: stats.duelsWonLost },
-      { label: 'Blocks', value: stats.blocks },
-    ];
-    
-    // 파울 데이터 
-    const playerFouls = [
-      { label: 'Fouls Drawn', value: stats.foulsDrawn },
-      { label: 'Fouls Committed', value: stats.foulsCommitted },
-      { label: 'Yellow Card', value: stats.yellowCard},
-      { label: 'Red Card', value: stats.redCard },
-    ];
-
-    // 득점 데이터
-    const playerGoal = [
-      { label: 'Total Goals', value: stats.totalGoals},
-      { label: 'Goals Per Match', value: stats.goalsPerMatch},
-      { label: 'Minutes Per Goal', value: stats.minutesPerGoal},
-      
-      { label: 'Goals Inside', value: stats.goalsInside},
-      { label: 'Goals Outside', value: stats.goalsOutside},
-      
-      { label: 'Scored With Head', value: stats.scoredWithHead},
-      { label: 'Scored With Left', value: stats.scoredWithLeft},
-      { label: 'Scored With Right', value: stats.scoredWithRight},
-      
-      { label: 'Penalties', value: stats.penalties},
-      { label: 'Free Kicks', value: stats.freeKicks},
-    ];
-
-    // 패스 데이터
-    const playerPass = [
-      { label: 'Total Passes', value: stats.totalPasses},
-      { label: 'Key Passes', value: stats.keyPasses},
-      { label: 'Successful Crosses', value: stats.successfulCrosses},
-      { label: 'Assists', value: stats.assists},
-
-      { label: 'Short Passes', value: stats.shortPass},
-      { label: 'Long Passes', value: stats.longPass},
-      { label: 'Pass Success Rate', value: stats.passSuccess},
-    ];
+    const playerProfile = getPlayerProfile(stats);
+    const playerAppearances = getPlayerAppearances(stats);
+    const playerTouches = getPlayerTouches(stats);
+    const playerFouls = getPlayerFouls(stats);
+    const playerGoal1 = getPlayerGoal1(stats);
+    const playerGoal2 = getPlayerGoal2(stats);
+    const playerPasses = getPlayerPasses(stats);
     
   return (
     <div className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
           {/* 선수 프로필 */}
-          <section className='flex border-t border-slate-600 justify-around shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] rounded-3xl h-96 mx-2 mt-5 my-2 overflow-hidden md:flex-col md:h-full sm:flex-col sm:h-full sm:justify-center sm:items-center'>
+          <section className='flex border-t border-slate-600 justify-around shadow-[10px_20px_32px_0_rgba(101,149,239,0.75)] rounded-3xl h-96 mx-2 mt-5 my-2 overflow-hidden md:flex-col md:h-full sm:flex-col sm:h-full sm:justify-center sm:items-center'>
             <div className='flex flex-wrap gap-10 lg:gap-4 md:justify-center md:pt-6 sm:flex-col'>
               <img className='relative h-96 p-5 pb-0' src={`/img/player/${stats.season}/${stats.season}${stats.last_name}.webp`} alt="" />
               <div className='flex flex-col justify-around ml-5 my-2 sm:items-center sm:gap-4'>
@@ -85,17 +34,16 @@ const FieldPlayer = () => {
             </div>
             
             <div className='flex flex-col justify-center gap-7 flex-wrap rounded-2xl lg:gap-4 md:flex-row md:py-8 sm:mb-7'>
-              {/* 반복되는 프로필 박스들을 map 메서드 활용하여 간결하게 처리 */}
-                    {
-                      playerProfile.map((stat, index) => (
-                        <div key={index} className='w-64 mx-1 lg:w-48'>
-                          <p className='text-slate-400 font-semibold text-sm'>{stat.label}</p>
-                          <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md h-16 font-serif font-bold p-2 mt-2.5'>
-                            {stat.value}
-                          </div>
-                        </div>
-                      ))
-                    }
+              {
+                playerProfile.map((stat, index) => (
+                  <div key={index} className='w-64 mx-1 lg:w-48'>
+                    <p className='text-slate-400 font-semibold text-sm'>{stat.label}</p>
+                    <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md h-16 font-serif font-bold p-2 mt-2.5'>
+                      {stat.value}
+                    </div>
+                  </div>
+                ))
+              }
             </div>
           </section>
           <section className='flex h-full flex-wrap sm:flex-col'>
@@ -103,8 +51,8 @@ const FieldPlayer = () => {
               [playerAppearances, playerTouches, playerFouls].map((content, index)=>{
                 const data = ['Appearances', 'Touches', 'Fouls']
                 return (
-                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                  <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>{data[index]}</h5>
+                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,149,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+                  <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>{data[index]}</h5>
                   <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
                     {
                       content.map((stat, i)=>{
@@ -123,64 +71,95 @@ const FieldPlayer = () => {
                       })
                     }
                   </div>
-                  
                 </div>
                 )
               })
             }
           </section>
-          <section className='flex h-full flex-wrap sm:flex-col'>
-            {
-              [playerGoal].map((content, index)=>{
-                return (
-                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Goals</h5>
-                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
-                      {
-                      content.map((stat, i)=>{
-    
-                          return(
-                            <div key={i} className='font-serif mb-5'>
-                              <p className={`text-md font-semibold`}>{stat.label}</p>
-                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
-                            </div>
-                          )
-                        })
-                      }
-                      <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-blue-600 h-2.5 rounded-full w-[75%]"></div>
+          <section className='flex h-full flex-wrap md:flex-col sm:flex-col'>
+            <div className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,149,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+              <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Goals</h5>
+              <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                {
+                playerGoal1.map((stat, i)=>{
+                  return(
+                    <div key={i} className='font-serif mb-5'>
+                        <p className={`text-md font-semibold`}>{stat.label}</p>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
                       </div>
-                      {/* <!-- Radial Chart --> */}
-                      <div className='mt-4 flex justify-center flex-wrap w-full '>
-                        <Chart width={'450px'} height={'450px'}/>
-                      </div>
+                    )
+                  })
+                }
+                </div>
+                  <div className='flex flex-row justify-around md:justify-center sm:flex-col sm:gap-7'>
+                    <div className='flex flex-col items-center justify-center w-full'>
+                        <p className='font-serif text-xl font-semibold mb-5'>Goals Inside</p>
+                        <div className='w-[250px] h-[250px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                          <Chart value={stats.goalsInside}/>
+                        </div>
+                    </div>
+                    <div className='flex flex-col items-center justify-center w-full'>
+                        <p className='font-serif text-xl font-semibold mb-5'>Goals Outside</p>
+                        <div className='w-[250px] h-[250px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                          <Chart value={stats.goalsOutside}/>
+                        </div>
                     </div>
                   </div>
-                )
-              })
-            }
-            {
-              [playerPass].map((content, index)=>{
-                return (
-                  <div key={index} className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,112,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
-                    <h5 className='text-2xl font-bold text-slate-300 text-center my-3'>Pass</h5>
-                    <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
-                      {
-                      content.map((stat, i)=>{
-    
-                          return(
-                            <div key={i} className='font-serif mb-5'>
-                              <p className={`text-md font-semibold`}>{stat.label}</p>
-                              <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
-                            </div>
-                          )
-                        })
-                      }
+                <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mt-10 my-5'>
+                {
+                  playerGoal2.map((stat, i)=>{
+                    return(
+                      <div key={i} className='font-serif mb-5'>
+                      <p className={`text-md font-semibold`}>{stat.label}</p>
+                      <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                      </div>
+                    )
+                  })
+                }
+                </div>
+            </div>
+            <div className='flex-1 flex-wrap bg-[rgba(17, 25, 40, 0.75)] shadow-[10px_10px_142px_0_rgba(101,149,239,0.75)] backdrop-saturate-180 backdrop-blur-2xl rounded-2xl ml-2 my-2'>
+              <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Pass</h5>
+              <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
+                {
+                playerPasses.map((stat, i)=>{
+                    return(
+                      <div key={i} className='font-serif mb-5'>
+                        <p className='text-md font-semibold'>{stat.label}</p>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                        </div>
+                      )
+                  })
+                }
+              </div>
+              <div className='flex flex-col items-center justify-center gap-6 mb-10'>
+                <h6 className='text-2xl font-bold text-slate-300 text-center my-4 md:text-xl'>Pass Completion</h6>
+                <div className='flex flex-row justify-center items-center mb-5 w-1/2 gap-7 md:flex-col sm:flex-col sm:w-2/3'>
+                  <div className='w-full'>
+                    <p className='font-serif text-md font-semibold py-4'>Short Balls</p>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div style={{ width: `${stats.shortPass}%` }} className="bg-blue-600 h-2.5 rounded-full"></div>
                     </div>
                   </div>
-                )
-              })
-            }
+                  <div className='flex justify-center items-center font-serif text-3xl font-semibold border rounded-[50%] h-24 w-32 md:h-32 md:w-32 sm:h-32 sm:w-32'>{stats.shortPass}%</div>
+                </div>
+                <div className='flex flex-row justify-center items-center w-1/2 gap-7 md:flex-col sm:flex-col sm:w-2/3'>
+                  <div className='w-full'>
+                    <p className='font-serif text-md font-semibold py-4'>Long Balls</p>
+                    <div className="w-[100%] bg-gray-200 rounded-full h-2.5">
+                      <div style={{ width: `${stats.longPass}%` }} className="bg-blue-600 h-2.5 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className='flex justify-center items-center font-serif text-3xl font-semibold border rounded-[50%] h-24 w-32 md:h-32 md:w-32 sm:h-32 sm:w-32'>{stats.longPass}%</div>
+                </div>
+              </div>
+              <div className='flex flex-col items-center justify-center w-full mb-10'>
+                <p className='text-2xl font-bold text-slate-300 text-center mx-3 my-10 md:text-xl'>Pass Success Rate</p>
+                <div className='w-[300px] h-[300px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                  <Chart value={stats.passSuccess}/>
+                </div>
+              </div>
+            </div>
           </section>
     </div>
   )
