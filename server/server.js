@@ -18,6 +18,8 @@ app.post('/crawl', async(req, res) => {
     const browser = await puppeteer.launch({ headless: true }); 
     const page = await browser.newPage();
     const { playerData } = req.body; 
+    // 에러 시에도 렌더링을 위하여 프로필 변수는 전역변수로 선언
+    let profileValues = null;
 
     // 크롤링을 위한 데이터 셋업
     const createResponseData = (playerData, 
@@ -127,7 +129,7 @@ app.post('/crawl', async(req, res) => {
 
         // 선수 프로필 정보들을 배열로 추출
         await page.waitForSelector('.profile-player-details__item-value');
-        const profileValues = await page.$$eval('.profile-player-details__item-value', els => els.map(el => el.textContent.trim())); 
+        profileValues = await page.$$eval('.profile-player-details__item-value', els => els.map(el => el.textContent.trim())); 
 
         // 시즌 정보 드롭다운 박스 클릭
         await page.waitForSelector('.dropdown__button', { timeout: 5000 });
@@ -239,11 +241,11 @@ app.post('/crawl', async(req, res) => {
         ));
     } catch (error) {
         // 크롤링이 되지 않는 경우 'x' 데이터 제공
-        try {
-            res.json(createResponseData(playerData));
-        } catch (error) {
-            console.error('이것도 안 됨?')
-        }
+        // 드롭다운 클릭 실패 또는 오류 발생 시에도 프로필 데이터는 렌더링되도록
+        res.json(createResponseData(playerData, 
+            null, 
+            profileValues && profileValues.length > 0 ? profileValues : null
+        ));
     } finally {
         if (browser) {
             await browser.close();

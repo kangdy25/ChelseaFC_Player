@@ -15,11 +15,11 @@ export default function MainLayout() {
     }, [order]);
 
     return (
-        <section>
-            <div className="Navbar w-[calc(100%-200px)] relative flex justify-between items-center  h-[75px] left-[200px] px-[40px] py-0 text-white bg-customBlue border-white border-b text-center
+        <section className="relative md:static sm:static">
+            <div className="w-[calc(100%-200px)] relative flex justify-between items-center h-[75px] left-[200px] px-10 py-0 text-white bg-customBlue border-white border-b text-center
             md:left-0 md:p-0 md:w-full sm:left-0 sm:p-0 sm:w-full sm:h-[160px] sm:flex-col sm:items-center sm:justify-center">
-                <div className="Navbar__dropbox">  
-                    <select className="font-sans text-base font-medium text-slate-600 bg-white m-0 rounded-[0.5em] border-b border-slate-400 py-[0.55em] pr-[1.4em] pl-[0.8em] focus:outline-none disabled:opacity-50 md:ml-[10px]" 
+                <div>  
+                    <select className="font-sans text-base font-medium text-slate-600 bg-white m-0 rounded-lg border-b border-slate-400 py-2 pr-6 pl-2 focus:outline-none disabled:opacity-50 md:ml-2" 
                     
                     name="Season" defaultValue={order} onChange={(e)=>{
                         dispatch(setOrder(e.target.value))
@@ -28,13 +28,13 @@ export default function MainLayout() {
                         <option value={1}>2024-2025</option>
                     </select>
                 </div>
-                <div className="Navbar__sort flex justify-center md:p-0 sm:my-[20px]">
+                <div className="flex justify-center md:p-0 sm:my-5">
                     <ul className="list-none flex flex-row md:p-0">
-                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
                         hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{
-                                const sortedSeasonInfo = seasonInfo.map((season, i) => {
+                                const sortedSeasonInfo = seasonInfo.map((season) => {
                                     return [...season].sort((x, y) =>
                                         x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1
                                     );
@@ -42,7 +42,7 @@ export default function MainLayout() {
                                 dispatch(setSeasonInfo(sortedSeasonInfo));
                                 return <CardLayout />;
                         }}>Name</span></li>
-                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
                         hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{
@@ -54,7 +54,7 @@ export default function MainLayout() {
                                 dispatch(setSeasonInfo(sortedSeasonInfo));
                                 return <CardLayout />;
                         }}>Number</span></li>
-                        <li className="border border-white rounded-[5px] p-[10px] my-0 mx-[10px] bg-none
+                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
                         hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
                             <span className="no-underline text-white cursor-pointer"
                             onClick={()=>{

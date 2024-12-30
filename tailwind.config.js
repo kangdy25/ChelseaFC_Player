@@ -30,7 +30,7 @@ module.exports = {
           dropboxShadow: '3px 3px 3px 5px rgba(63, 63, 156, 0.04)',
           sortbtnHoverShadow: 'rgba(0, 255, 255, 0.525) 0px 5px 20px',
           cardShadow: '0 10px 25px rgba(51, 51, 51, 0.8)',
-          cardHoverShadow: '0px 10px 20px rgba(4, 0, 255)'
+          cardHoverShadow: '30px 50px 40px rgba(4, 0, 255)'
         },
         width: {
           'calc-100-minus-200': 'calc(100% - 200px)',

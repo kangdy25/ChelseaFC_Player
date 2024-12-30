@@ -18,6 +18,7 @@ const PlayerStatPage = () => {
         dispatch(resetStats());
     }, [name, season, dispatch]);
 
+    // 카드 컴포넌트 클릭 시 해당 선수와 일치하는 데이터 찾기
     const playerData = seasonInfo.find(
         (seasonArray) => seasonArray.some(player => player.season === parseInt(season)))?.find(
             (player)=> player.url_name === name
@@ -63,6 +64,7 @@ const PlayerStatPage = () => {
         return <NotFoundPage />;
     }
 
+    // 데이터를 기다리는 동안 Loading UI, 데이터 받은 후 포지션에 따라서 페이지 렌더링
     return (
         <main className='flex'>    
             {!stats ? <Loading/> : (stats.role !== 0 ? <FieldPlayer /> : <Goalkeeper />) }
