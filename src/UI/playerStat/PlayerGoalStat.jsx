@@ -13,9 +13,9 @@ const PlayerGoalStat = () => {
             <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Goals</h5>
             <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
             {
-                playerGoal1.map((stat, i)=>{
+                playerGoal1.map((stat)=>{
                 return(
-                    <div key={i} className='font-serif mb-5'>
+                    <div key={stat.label} className='font-serif mb-5'>
                         <p className={`text-md font-semibold`}>{stat.label}</p>
                         <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
                     </div>
@@ -27,7 +27,7 @@ const PlayerGoalStat = () => {
             <div className='flex flex-row justify-around md:justify-center sm:flex-col sm:gap-7'>
                 <div className='flex flex-col items-center justify-center w-full'>
                     <p className='font-serif text-xl font-semibold mb-5'>Goals Inside</p>
-                    <div className='w-[250px] h-[250px] md:w-[200px]  md:h-[200px] sm:w-[150px] sm:h-[150px]'>
+                    <div className='w-[250px] h-[250px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]'>
                         <Chart value={stats.goalsInside}/>
                     </div>
                 </div>
@@ -40,11 +40,11 @@ const PlayerGoalStat = () => {
             </div>
             <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mt-10 my-5'>
             {
-                playerGoal2.map((stat, i)=>{
+                playerGoal2.map((stat)=>{
                     return(
-                    <div key={i} className='font-serif mb-5'>
-                        <p className={`text-md font-semibold`}>{stat.label}</p>
-                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                    <div key={stat.label} className='font-serif mb-5'>
+                        <p className='text-md font-semibold'>{stat.label}</p>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold'>{stat.value}</div>
                     </div>
                     )
                 })

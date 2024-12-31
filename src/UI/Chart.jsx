@@ -6,7 +6,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Chart = (props)=>{
     const text = `${props.value}`; // 가운데 표시할 텍스트
-    const number = parseInt(text.slice(0, -1)); // % 기호 빼고 숫자만 남기기
+    const isNan = (text === 'x')
+    const number = isNan ? 0 : parseInt(text.slice(0, -1)); // % 기호 빼고 숫자만 남기기
     
     const textCenter = {
         id: "textCenter",

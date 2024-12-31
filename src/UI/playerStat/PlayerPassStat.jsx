@@ -12,11 +12,11 @@ const PlayerPassStat = () => {
             <h5 className='text-3xl font-bold text-slate-300 text-center my-4 md:text-2xl'>Pass</h5>
             <div className='flex flex-wrap justify-center items-center gap-x-10 p-3 mb-3'>
             {
-                playerPasses.map((stat, i)=>{
+                playerPasses.map((stat)=>{
                     return(
-                    <div key={i} className='font-serif mb-5'>
+                    <div key={stat.label} className='font-serif mb-5'>
                         <p className='text-md font-semibold'>{stat.label}</p>
-                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold text-white'>{stat.value}</div>
+                        <div className='flex items-center flex-wrap justify-center border border-blue-300 rounded-md w-40 h-10 p-2 mt-1 font-bold'>{stat.value}</div>
                         </div>
                     )
                 })
