@@ -15,7 +15,10 @@ app.use(express.json());
 
 app.post('/crawl', async(req, res) => {
     // 브라우저 및 페이지 초기화
-    const browser = await puppeteer.launch({ headless: true }); 
+    const browser = await puppeteer.launch({ 
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    }); 
     const page = await browser.newPage();
     const { playerData } = req.body; 
     // 에러 시에도 렌더링을 위하여 프로필 변수는 전역변수로 선언
