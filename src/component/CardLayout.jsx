@@ -29,7 +29,7 @@ export default function CardLayout() {
                                 </div>
                                 <div className="bg-customCobalt border border-slate-500 backdrop-blur-[40px] shadow-cardShadow rounded-[20px] w-[200px] h-[250px] overflow-hidden">
                                     <img className='absolute top-0 left-0 w-full'
-                                    src={url + '/' + a.season + '/' + a.season + a.last_name + '.webp'} alt="player"/>
+                                    src={url + a.season + '/' + a.season + a.last_name + '.webp'} alt="player"/>
                                 </div>
                                 <p className="text-white p-4 text-sm font-serif font-bold">
                                     {a.position}
