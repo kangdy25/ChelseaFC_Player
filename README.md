@@ -14,14 +14,17 @@ Chelsea FC 선수 리스트 및 각 선수 스탯 분석 웹사이트
 - 404 Page, Loading Page
 
 ## 사용할 기술 스택
-- React.js (front-end)
-    - react-router-dom (Routing)
-    - TailwindCSS (Styling)
-    - Redux Toolkit (State Management)
-    - Chart.js (Chart Library)
-- Node.js (Back-end)
-    - Express.js (Server)
-    - Puppeteer (Crawling)
+
+### Front-end
+- React.js (Client)
+- React-router-dom (Routing)
+- Tailwind CSS (Styling)
+- Redux toolkit (State Management)
+- Chart.js (Chart)
+### Back-end
+- Express.js (Server)
+- Puppeteer (Crawling)
+
 
 ## 트러블 슈팅
 기존에는 FotMob API를 사용하여 데이터 렌더링을 진행하려 했으나, FotMob API가 현재 막히게 되었다.  

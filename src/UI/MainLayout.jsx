@@ -1,13 +1,33 @@
+import { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSeasonInfo } from "../redux/slice/seasonInfoSlice";
 import { setOrder } from "../redux/slice/orderSlice";
+import SortButton from "../component/SortButton";
 import CardLayout from "../component/CardLayout";
-import { useEffect} from "react";
 
 export default function MainLayout() {
     const seasonInfo = useSelector((state) => state.seasonInfo)
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch();
+
+    // 정렬 알고리즘
+    const handleSort = (label) => {
+        const sortedSeasonInfo = seasonInfo.map((season) => {
+            return [...season].sort((x, y) =>
+            {
+                if (label === 'name') {
+                    return x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1;
+                } else if (label === 'number') {
+                    return x.backnumber - y.backnumber; 
+                } else if (label === 'position') {
+                    return x.role - y.role;
+                }
+                return 0;
+            });
+        });
+        dispatch(setSeasonInfo(sortedSeasonInfo));
+        return <CardLayout />;
+    }
     
     // order 상태가 변경될 때마다 localStorage에 저장
     useEffect(() => {
@@ -30,42 +50,9 @@ export default function MainLayout() {
                 </div>
                 <div className="flex justify-center md:p-0 sm:my-5">
                     <ul className="list-none flex flex-row md:p-0">
-                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
-                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
-                            <span className="no-underline text-white cursor-pointer"
-                            onClick={()=>{
-                                const sortedSeasonInfo = seasonInfo.map((season) => {
-                                    return [...season].sort((x, y) =>
-                                        x.last_name.toLowerCase() < y.last_name.toLowerCase() ? -1 : 1
-                                    );
-                                });
-                                dispatch(setSeasonInfo(sortedSeasonInfo));
-                                return <CardLayout />;
-                        }}>Name</span></li>
-                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
-                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
-                            <span className="no-underline text-white cursor-pointer"
-                            onClick={()=>{
-                                const sortedSeasonInfo = seasonInfo.map((season) => {
-                                    return [...season].sort((x, y) =>
-                                        x.backnumber - y.backnumber
-                                    );
-                                });
-                                dispatch(setSeasonInfo(sortedSeasonInfo));
-                                return <CardLayout />;
-                        }}>Number</span></li>
-                        <li className="border border-white rounded-md p-2.5 my-0 mx-2.5 bg-none
-                        hover:bg-cyan-gradient hover:shadow-sortbtnHoverShadow">
-                            <span className="no-underline text-white cursor-pointer"
-                            onClick={()=>{
-                                const sortedSeasonInfo = seasonInfo.map((season) => {
-                                    return [...season].sort((x, y) =>
-                                        x.role - y.role
-                                    );
-                                });
-                                dispatch(setSeasonInfo(sortedSeasonInfo));
-                                return <CardLayout />;
-                        }}>Position</span></li>
+                        <SortButton label="name" onClick={()=>handleSort('name')} />
+                        <SortButton label="number" onClick={()=>handleSort('number')} />
+                        <SortButton label="position" onClick={()=>handleSort('position')} />
                     </ul>
                 </div>
             </div>
