@@ -2,9 +2,13 @@ import express from "express";
 import puppeteer from 'puppeteer';
 import path from "path";
 import { fileURLToPath } from "url";
+import cors from 'cors'; 
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
+
+// CORS 설정
+app.use(cors()); 
 
 // __dirname 정의
 const __filename = fileURLToPath(import.meta.url);
@@ -145,21 +149,17 @@ app.post('/crawl', async(req, res) => {
         
         // 요청 시즌 문자열 조정 (Ex. 2324 -> 2023/24)
         const seasonText = playerData.season.toString();
-        const targetText = `20${seasonText.slice(0, 2)}/${seasonText.slice(2)}` 
-        console.log(targetText)
+        const targetText = `20${seasonText.slice(0, 2)}/${seasonText.slice(2)}`
 
         // 요청 시즌과 동일한 세부 시즌 찾아서 클릭
         for (let value of seasonValues) {
             const text =  await page.evaluate((el) => el.textContent.trim(), value);
-            console.log('찾은 년도 : ' + text)
             if (text === (targetText)) {
                 await value.click(); // 텍스트가 일치하면 클릭
                 await page.waitForSelector('.player-stat__value', { timeout: 5000 });
-                console.log(`"${targetText}" 시즌을 클릭했습니다.`);
                 onSeason = 1;
                 break;
             } else {
-                console.log('클릭 못함 ㅠㅠ');
                 onSeason = 0;
             }
         }
@@ -173,7 +173,6 @@ app.post('/crawl', async(req, res) => {
         const yellowCard = await page.$eval('.stats-fouls__yellow-cards__value', el => el.textContent); 
         await page.waitForSelector('.stats-fouls__red-cards__value');
         const redCard = await page.$eval('.stats-fouls__red-cards__value', el => el.textContent); 
-
         const cardValues = [yellowCard, redCard];
 
         // 득점, 슈팅 정보 추출해서 배열로 선언
@@ -224,14 +223,7 @@ app.post('/crawl', async(req, res) => {
         await page.waitForSelector('.stats-pass-success__player-rank__percentage-value');
         const passSuccess = await page.$eval('.stats-pass-success__player-rank__percentage-value', el => el.textContent); 
         
-        const passValues = [...passCompletion, passSuccess]        
-    
-        console.log(statValues)
-        console.log(profileValues)
-        console.log(cardValues)
-        console.log(shootValues)
-        console.log(saveValues)
-        console.log(passValues)
+        const passValues = [...passCompletion, passSuccess]
 
         // 크롤링한 데이터를 반환
         res.json(createResponseData(playerData, 
