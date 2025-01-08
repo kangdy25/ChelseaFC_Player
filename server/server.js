@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import cors from 'cors'; 
 
 const app = express();
-const PORT = 3001;
+const PORT = 80;
 
 // CORS 설정
 app.use(cors()); 
