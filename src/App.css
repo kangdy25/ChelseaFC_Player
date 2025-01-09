@@ -3,7 +3,7 @@ a {
 }
 
 .header {
-  background: linear-gradient(225deg, #fff, #bbc5ff);
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -21,13 +21,18 @@ a {
 }
 
 .header h1 {
-  color: #172286;
+  color: #b8bde3;
   font-family: serif;
   font-weight: 600;
   line-height: 1.4;
   font-size: 24px;
   padding: 10px 10px 10px 20px;
-  margin-bottom: 300px;
+  margin-bottom: 150px;
+}
+.header p {
+  font-family: serif;
+    text-align: center;
+    color: #c5cae2;
 }
 
 .Navbar {
@@ -40,7 +45,7 @@ a {
   left: 200px;
   padding: 0px 40px;
   color: #fff;
-  background-color: rgb(43, 36, 149);
+  background-color: rgb(36, 57, 149);
   border-bottom: 1px solid #fff;
   text-align: center;
 }
@@ -112,7 +117,7 @@ a {
   position: absolute;
   left: 200px;
   width: calc(100% - 200px);
-  background: linear-gradient(360deg, #262d6a, #3527b1, #07002e);
+  background: radial-gradient(ellipse at bottom, #262d6a, #3253d6, #07002e);
 }
 
 .card_layout {
@@ -229,6 +234,9 @@ a {
     margin-top: 0;
     width: 100px;
   }
+  .header p {
+    display: none;
+  }
   .Navbar {
     /* top: 100px; */
     left: 0;
@@ -256,7 +264,7 @@ a {
     /* justify-content: center; */
     height: 180px;
     align-items: center;
-  }
+  } 
   .Navbar {
     /* display: none; */
     height: 150px;
