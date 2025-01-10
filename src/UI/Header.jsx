@@ -2,8 +2,7 @@ export default function Header() {
     return (
         <header className="header bg-radial-eclipse-bottom flex flex-col h-screen w-[200px] justify-between items-center fixed top-0 left-0 
         md:relative md:w-full md:h-[100px] md:flex-row md:justify-start md:items-stretch
-        sm:flex-col sm:w-full sm:h-[190px] sm:items-center
-        sm:relative 
+        sm:flex-col sm:w-full sm:h-[190px] sm:items-center sm:relative 
         ">
             <img src="/img/Logo.webp" alt="" className="mt-[25px] w-[150px]
             md:mt-0 md:w-[100px] sm:w-[100px] sm:mt-[20px]"/>
