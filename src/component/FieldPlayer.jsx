@@ -68,7 +68,7 @@ const FieldPlayer = () => {
     ];
 
   return (
-    <main className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
+    <div className='w-full h-full min-h-screen bg-black bg-stat-gradient text-white'>
           {/* 선수 프로필 */}
           <section className='flex border-t border-slate-600 justify-around shadow-[10px_20px_32px_0_rgba(101,112,239,0.75)] rounded-3xl h-96 mx-2 mt-5 my-2 overflow-hidden md:flex-col md:h-full sm:flex-col sm:h-full sm:justify-center sm:items-center'>
             <div className='flex flex-wrap gap-10 lg:gap-4 md:justify-center md:pt-6 sm:flex-col'>
@@ -176,7 +176,7 @@ const FieldPlayer = () => {
               })
             }
           </section>
-    </main>
+    </div>
   )
 }
 
