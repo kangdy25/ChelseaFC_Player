@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@reduxjs/toolkit": "^2.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.20",
     "chelseafc_player": "file:",
-    "fotmob": "^2.4.0",
+    "express": "^4.21.2",
     "puppeteer": "^23.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,8 +37,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "data": "node src/Database/FotMob.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.16"
   }
 }

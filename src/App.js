@@ -7,6 +7,7 @@ import MainLayout from './UI/MainLayout.jsx';
 import NotFoundPage from './UI/NotFoundPage.jsx';
 import PlayerStatPage from './UI/PlayerStatPage.jsx';
 
+// Routing 유효성 검사
 function RoutingValidation() {
   const seasonInfo = useSelector((state) => state.seasonInfo)
   const { season, name } = useParams();
@@ -39,6 +40,7 @@ function App() {
         {/* 선수별 스탯 상세 페이지 */}
         <Route path="/player/:season/:name" element={ <RoutingValidation />} />
         {/* 모든 다른 경로에 대해 404로 리디렉션 */}
+        <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="*" element={ <NotFoundPage /> } />
       </Routes>
     </div>
