@@ -13,6 +13,9 @@ const PlayerStatPage = () => {
     const dispatch = useDispatch();
     const {season, name} = useParams();
 
+    // 환경 변수 설정
+    const API_URL=process.env.REACT_APP_API_UR;
+
     useEffect(() => {
         // 새로운 선수에 대한 데이터 로드 전 상태 초기화
         dispatch(resetStats());
@@ -27,7 +30,7 @@ const PlayerStatPage = () => {
     // 크롤링 요청 코드
     const fetchStats = useCallback(async (playerData) => {
         try {
-            const response = await fetch(`/crawl`, {
+            const response = await fetch(`${API_URL}/crawl`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +53,7 @@ const PlayerStatPage = () => {
         } catch (error) {
             console.error('Error fetching stats:', error);
         }
-    }, [dispatch]);
+    }, [dispatch, API_URL]);
 
     // 페이지 접속 시 현역 첼시 선수 데이터가 있으면 크롤링 시작
     useEffect(() => {

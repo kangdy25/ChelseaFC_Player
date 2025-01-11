@@ -5,10 +5,13 @@ import { fileURLToPath } from "url";
 import cors from 'cors'; 
 
 const app = express();
-const PORT = 80;
+const PORT = 3001;
 
 // CORS 설정
-app.use(cors()); 
+app.use(cors({
+    origin: 'https://chelseafcplayer.com',
+    methods: ['GET', 'POST'],
+})); 
 
 // __dirname 정의
 const __filename = fileURLToPath(import.meta.url);
@@ -248,9 +251,11 @@ app.post('/crawl', async(req, res) => {
     }   
 })
 
-// React 정적 파일 서빙
-const buildPath = path.join(__dirname, 'build');
-app.use(express.static(buildPath));
+// React 정적 파일 서빙 
+// // => S3에서만 프론트를 제공할 것이기에 서빙을 제거한다.
+
+// const buildPath = path.join(__dirname, 'build');
+// app.use(express.static(buildPath));
 
 // React 앱의 라우팅 처리
 app.get('*', (req, res) => {
