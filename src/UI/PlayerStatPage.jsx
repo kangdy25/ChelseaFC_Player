@@ -14,7 +14,7 @@ const PlayerStatPage = () => {
     const {season, name} = useParams();
 
     // 환경 변수 설정
-    const API_URL=process.env.REACT_APP_API_UR;
+    const API_URL=process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         // 새로운 선수에 대한 데이터 로드 전 상태 초기화

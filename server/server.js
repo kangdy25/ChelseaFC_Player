@@ -8,10 +8,7 @@ const app = express();
 const PORT = 3001;
 
 // CORS 설정
-app.use(cors({
-    origin: 'https://chelseafcplayer.com',
-    methods: ['GET', 'POST'],
-})); 
+app.use(cors()); 
 
 // __dirname 정의
 const __filename = fileURLToPath(import.meta.url);
