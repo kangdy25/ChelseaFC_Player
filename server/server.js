@@ -8,7 +8,11 @@ const app = express();
 const PORT = 3001;
 
 // CORS 설정
-app.use(cors()); 
+app.use(cors({
+    origin: ['https://chelseafcplayer.com', 'http://localhost:3000'], // 허용할 출처 배열
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'], // 필요한 헤더 추가
+}));
 
 // __dirname 정의
 const __filename = fileURLToPath(import.meta.url);
@@ -248,16 +252,14 @@ app.post('/crawl', async(req, res) => {
     }   
 })
 
-// React 정적 파일 서빙 
-// // => S3에서만 프론트를 제공할 것이기에 서빙을 제거한다.
-
+// React 정적 파일 서빙
 // const buildPath = path.join(__dirname, 'build');
 // app.use(express.static(buildPath));
 
 // React 앱의 라우팅 처리
-app.get('*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+// });
 
 // 서버 실행
 app.listen(PORT, () => {

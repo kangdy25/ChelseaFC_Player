@@ -38,7 +38,7 @@ function App() {
           </div>
         } />
         {/* 선수별 스탯 상세 페이지 */}
-        <Route path="/player/:season/:name" element={ <RoutingValidation />} />
+        <Route path="/player/:season/:url_name" element={ <RoutingValidation />} />
         {/* 모든 다른 경로에 대해 404로 리디렉션 */}
         <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="*" element={ <NotFoundPage /> } />
