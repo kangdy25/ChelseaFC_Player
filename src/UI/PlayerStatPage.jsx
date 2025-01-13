@@ -13,6 +13,8 @@ const PlayerStatPage = () => {
     const dispatch = useDispatch();
     const {season, name} = useParams();
 
+    const apiUrl = 'https://api.chelseafcplayer.com'; // 실제 API 도메인 URL
+    
     useEffect(() => {
         // 새로운 선수에 대한 데이터 로드 전 상태 초기화
         dispatch(resetStats());
@@ -24,13 +26,10 @@ const PlayerStatPage = () => {
             (player)=> player.url_name === name
     )
 
-    console.log(season)
-    console.log(name)
-
     // 크롤링 요청 코드
     const fetchStats = useCallback(async (playerData) => {
         try {
-            const response = await fetch(`https://api.chelseafcplayer.com/crawl`, {
+            const response = await fetch(`${apiUrl}/player/${season}/${name}/crawl`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

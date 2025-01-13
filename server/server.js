@@ -21,11 +21,18 @@ const __dirname = path.dirname(__filename);
 // JSON 요청 처리
 app.use(express.json());
 
-app.post('/crawl', async(req, res) => {
+app.post('/player/:season/:name/crawl', async(req, res) => {
     // 브라우저 및 페이지 초기화
     const browser = await puppeteer.launch({ 
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: [
+            '--no-sandbox', 
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--disable-software-rasterizer',
+            '--disable-background-networking',
+        ],
     }); 
     const page = await browser.newPage();
     const { playerData } = req.body; 
@@ -253,13 +260,13 @@ app.post('/crawl', async(req, res) => {
 })
 
 // React 정적 파일 서빙
-// const buildPath = path.join(__dirname, 'build');
-// app.use(express.static(buildPath));
+const buildPath = path.join(__dirname, 'build');
+app.use(express.static(buildPath));
 
 // React 앱의 라우팅 처리
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+});
 
 // 서버 실행
 app.listen(PORT, () => {
