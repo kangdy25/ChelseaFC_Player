@@ -23,6 +23,7 @@ Chelsea FC 선수 리스트 및 각 선수 스탯 분석 웹사이트
 ### Dashboard 스타일 세부 페이지 (크롤링 데이터 시각화)
 
 ![Image](https://github.com/user-attachments/assets/4773d53d-139f-45cb-81f1-7722c14920ba)
+![Image](https://github.com/user-attachments/assets/c7ae216d-61f0-4277-b0e9-113ab3cb88d2)
 
 -   포지션 별 선수 주 스탯 다르게 제작 (필드플레이어 VS 골키퍼)
 
