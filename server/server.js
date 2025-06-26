@@ -26,7 +26,7 @@ app.use(express.json());
 app.post("/player/:season/:name/crawl", async (req, res) => {
   // 브라우저 및 페이지 초기화
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -344,6 +344,7 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
 
 // React 정적 파일 서빙
 const buildPath = path.join(__dirname, "build");
+console.log(buildPath)
 app.use(express.static(buildPath));
 
 // React 앱의 라우팅 처리
