@@ -13,7 +13,8 @@ const PlayerStatPage = () => {
   const dispatch = useDispatch();
   const { season, name } = useParams();
 
-  const apiUrl = "https://api.chelseafcplayer.com"; // 실제 API 도메인 URL
+  // const apiUrl = "https://api.chelseafcplayer.com"; // 실제 API 도메인 URL
+  const apiUrl = "http://localhost:3001"; // 개발 시 사용할 localhost URL
 
   useEffect(() => {
     // 새로운 선수에 대한 데이터 로드 전 상태 초기화
@@ -58,7 +59,7 @@ const PlayerStatPage = () => {
         console.error("Error fetching stats:", error);
       }
     },
-    [dispatch]
+    [dispatch, name, season]
   );
 
   // 페이지 접속 시 현역 첼시 선수 데이터가 있으면 크롤링 시작

@@ -26,7 +26,7 @@ app.use(express.json());
 app.post("/player/:season/:name/crawl", async (req, res) => {
   // 브라우저 및 페이지 초기화
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -150,7 +150,7 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
       `https://www.chelseafc.com/en/teams/profile/${playerData.url_name}`
     );
     // 페이지의 크기를 설정한다.
-    await page.setViewport({ width: 1080, height: 3000 });
+    await page.setViewport({ width: 1080, height: 12000 });
 
     // 선수 프로필 정보들을 배열로 추출
     await page.waitForSelector(".profile-player-details__item-value");
@@ -159,10 +159,10 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
       (els) => els.map((el) => el.textContent.trim())
     );
 
+    console.log("프로필 정보:", profileValues);
+
     // 시즌 정보 드롭다운 박스 클릭
-    await page.waitForSelector(".dropdown__button", { timeout: 5000 });
-    const element = await page.$$(".dropdown__button");
-    await element[1].click();
+    await page.locator(".dropdown__button").click();
 
     // 드롭다운의 세부 시즌 정보들을 배열로 추출
     await page.waitForSelector(`.dropdown__item`);
@@ -193,6 +193,8 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
       els.map((el) => el.textContent.trim())
     );
 
+    console.log("스탯 정보:", statValues);
+
     // 엘로카드, 레드카드 정보 추출해서 배열로 선언
     await page.waitForSelector(".stats-fouls__yellow-cards__value");
     const yellowCard = await page.$eval(
@@ -205,6 +207,8 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
       (el) => el.textContent
     );
     const cardValues = [yellowCard, redCard];
+
+    console.log("카드 정보:", cardValues);
 
     // 득점, 슈팅 정보 추출해서 배열로 선언
     let shootValues = null;
@@ -262,6 +266,8 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
         penalties,
         freeKicks,
       ];
+
+      console.log("슈팅 정보:", shootValues);
     }
 
     // 선방 정보 추출해서 배열로 선언
@@ -280,6 +286,8 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
       );
 
       saveValues = [savesOutside, savesInside];
+
+      console.log("선방 정보:", saveValues);
     }
 
     // 패스 정보 추출해서 배열로 선언
@@ -299,21 +307,27 @@ app.post("/player/:season/:name/crawl", async (req, res) => {
 
     const passValues = [...passCompletion, passSuccess];
 
+    console.log("패스 정보:", passValues);
+
     // 크롤링한 데이터를 반환
-    res.json(
-      createResponseData(
-        playerData,
-        statValues.length > 0 ? statValues : null,
-        profileValues.length > 0 ? profileValues : null,
-        cardValues.length > 0 ? cardValues : null,
-        playerData.role !== 0 && shootValues.length > 0 ? shootValues : null,
-        playerData.role === 0 && saveValues.length > 0 ? saveValues : null,
-        passValues.length > 0 ? passValues : null
-      )
+    const responseData = createResponseData(
+      playerData,
+      statValues.length > 0 ? statValues : null,
+      profileValues.length > 0 ? profileValues : null,
+      cardValues.length > 0 ? cardValues : null,
+      playerData.role !== 0 && shootValues?.length > 0 ? shootValues : null,
+      playerData.role === 0 && saveValues?.length > 0 ? saveValues : null,
+      passValues.length > 0 ? passValues : null
     );
+
+    console.log("최종 반환 데이터:", responseData);
+
+    res.json(responseData);
   } catch (error) {
     // 크롤링이 되지 않는 경우 'x' 데이터 제공
     // 드롭다운 클릭 실패 또는 오류 발생 시에도 프로필 데이터는 렌더링되도록
+    console.error("크롤링 에러:", error);
+
     res.json(
       createResponseData(
         playerData,
